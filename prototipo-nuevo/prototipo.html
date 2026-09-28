@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Galaxy Pizza-Pizzas, promociones y pedidos">
+ 
+    <title>Galaxy Pizza</title>
+    <link rel="stylesheet" href="prototipo.css">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Geologica:wght,CRSV@100..900,0&family=Lexend:wght@100..900&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Orbitron:wght@400..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+   
+</head>
+
+
+<body>
+
+    <div class="barra-superior">
+        <p>ordena y recibe una supero galaxy pizza</p>
+    </div>
+
+    <header class="encabezado">
+
+        <div class="logo">
+            <img src="catlogo.png" alt="Galaxy Pizza">
+        </div>
+
+
+        <div class="buscador">
+
+            <input
+                type="text"
+                placeholder="buscar"
+            >
+
+            <button><img src="lupa.png" alt="lupa"></button>
+
+        </div>
+
+
+        <div class="acciones">
+
+            <a href="#pedido">
+                 Mi pedido
+            </a>
+
+            <a href="#carrito">
+                Carrito
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         MENÚ PRINCIPAL
+    ========================== -->
+
+    <nav class="menu">
+
+        <a href="#inicio">Inicio</a>
+
+        <a href="#pedidos">Pedidos</a>
+
+        <a href="#pizzas">Pizzas</a>
+
+        <a href="#tamanos">Tamaños</a>
+
+        <a href="#ingredientes">Ingredientes</a>
+
+        <a href="#promociones">Promociones</a>
+
+        <a href="#sucursales">Sucursales</a>
+
+    </nav>
+
+
+    <!-- =========================
+         BANNER PRINCIPAL
+    ========================== -->
+
+    <section class="banner" id="inicio">
+
+        <div class="banner-texto">
+
+            <span>GALAXY PIZZA</span>
+
+            <h1>
+                El sabor de otro mundo
+            </h1>
+
+            <p>
+                Elige tu pizza, tamaño, sabor e ingredientes
+                y arma tu pedido como tú quieras.
+            </p>
+
+            <a href="#pizzas" class="boton">
+                ORDENAR AHORA
+            </a>
+
+        </div>
+
+
+        <div class="banner-imagen">
+
+            <img
+                src="pizza.png"
+                alt="Pizza Galaxy"
+            >
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         CATEGORÍAS
+    ========================== -->
+
+    <section class="categorias">
+
+        <h2>
+            ¿Qué se te antoja?
+        </h2>
+
+        <div class="categorias-grid">
+
+
+            <a href="#pizzas" class="categoria">
+
+                <img
+                    src="IMG/pizza.png"
+                    alt="Pizzas"
+                >
+
+                <h3>
+                    Pizzas
+                </h3>
+
+            </a>
+
+
+            <a href="#tamaños" class="categoria">
+
+                <img
+                    src="IMG/tamaño.png"
+                    alt="Tamaños"
+                >
+
+                <h3>
+                    Tamaños
+                </h3>
+
+            </a>
+
+
+            <a href="#ingredientes" class="categoria">
+
+                <img
+                    src="IMG/ingredientes.png"
+                    alt="Ingredientes"
+                >
+
+                <h3>
+                    Ingredientes
+                </h3>
+
+            </a>
+
+
+            <a href="#extras" class="categoria">
+
+                <img
+                    src="IMG/papas.png"
+                    alt="Papas y extras"
+                >
+
+                <h3>
+                    Papas y extras
+                </h3>
+
+            </a>
+
+
+            <a href="#bebidas" class="categoria">
+
+                <img
+                    src="IMG/refresco.png"
+                    alt="Refrescos"
+                >
+
+                <h3>
+                    Refrescos
+                </h3>
+
+            </a>
+
+
+            <a href="#promociones" class="categoria">
+
+                <img
+                    src="IMG/promocion.png"
+                    alt="Promociones"
+                >
+
+                <h3>
+                    Promociones
+                </h3>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         PIPSHAS xd
+    ========================== -->
+
+    <section class="productos" id="pizzas">
+
+        <div class="titulo">
+
+            <h2>
+                Nuestras pizzas
+            </h2>
+
+            <p>
+                Elige tu favorita
+            </p>
+
+        </div>
+
+
+        <div class="productos-grid">
+
+
+            <!-- PIZZA 1 -->
+
+            <article class="producto">
+
+                <div class="producto-imagen">
+
+                    <img
+                        src="IMG/pizza-pepperoni.jpg"
+                        alt="Pizza Pepperoni"
+                    >
+
+                </div>
+
+
+                <div class="producto-info">
+
+                    <h3>
+                        Pepperoni
+                    </h3>
+
+                    <p>
+                        Salsa de tomate, queso mozzarella
+                        y pepperoni.
+                    </p>
+
+                    <span class="precio">
+                        $149
+                    </span>
+
+                    <button>
+                        Agregar al carrito
+                    </button>
+
+                </div>
+
+            </article>
+
+
+            <!-- PIZZA 2 -->
+
+            <article class="producto">
+
+                <div class="producto-imagen">
+
+                    <img
+                        src="IMG/pizza-hawaiana.jpg"
+                        alt="Pizza Hawaiana"
+                    >
+
+                </div>
+
+
+                <div class="producto-info">
+
+                    <h3>
+                        Hawaiana
+                    </h3>
+
+                    <p>
+                        Jamón, piña y queso mozzarella.
+                    </p>
+
+                    <span class="precio">
+                        $159
+                    </span>
+
+                    <button>
+                        Agregar al carrito
+                    </button>
+
+                </div>
+
+            </article>
+
+
+            <!-- PIZZA 3 -->
+
+            <article class="producto">
+
+                <div class="producto-imagen">
+
+                    <img
+                        src="IMG/pizza-carnes.jpg"
+                        alt="Pizza Carnes"
+                    >
+
+                </div>
+
+
+                <div class="producto-info">
+
+                    <h3>
+                        Carnes
+                    </h3>
+
+                    <p>
+                        Pepperoni, jamón, salchicha
+                        y tocino.
+                    </p>
+
+                    <span class="precio">
+                        $179
+                    </span>
+
+                    <button>
+                        Agregar al carrito
+                    </button>
+
+                </div>
+
+            </article>
+
+
+            <!-- PIZZA 4 -->
+
+            <article class="producto">
+
+                <div class="producto-imagen">
+
+                    <img
+                        src="IMG/pizza-vegetariana.jpg"
+                        alt="Pizza Vegetariana"
+                    >
+
+                </div>
+
+
+                <div class="producto-info">
+
+                    <h3>
+                        Vegetariana
+                    </h3>
+
+                    <p>
+                        Champiñones, pimiento,
+                        cebolla y aceitunas.
+                    </p>
+
+                    <span class="precio">
+                        $169
+                    </span>
+
+                    <button>
+                        Agregar al carrito
+                    </button>
+
+                </div>
+
+            </article>
+
+
+            <!-- PIZZA 5 -->
+
+            <article class="producto">
+
+                <div class="producto-imagen">
+
+                    <img
+                        src="IMG/pizza-queso.jpg"
+                        alt="Pizza Cuatro Quesos"
+                    >
+
+                </div>
+
+
+                <div class="producto-info">
+
+                    <h3>
+                        Cuatro Quesos
+                    </h3>
+
+                    <p>
+                        Mezcla de quesos seleccionados.
+                    </p>
+
+                    <span class="precio">
+                        $179
+                    </span>
+
+                    <button>
+                        Agregar al carrito
+                    </button>
+
+                </div>
+
+            </article>
+
+
+            <!-- PIZZA 6 -->
+
+            <article class="producto">
+
+                <div class="producto-imagen">
+
+                    <img
+                        src="IMG/pizza-especial.jpg"
+                        alt="Pizza Especial"
+                    >
+
+                </div>
+
+
+                <div class="producto-info">
+
+                    <h3>
+                        Galaxy Especial
+                    </h3>
+
+                    <p>
+                        Nuestra combinación especial
+                        de ingredientes.
+                    </p>
+
+                    <span class="precio">
+                        $189
+                    </span>
+
+                    <button>
+                        Agregar al carrito
+                    </button>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </section>
+
+    <!-- =========================
+         Extras pero me equivoque
+    ========================== -->
+
+    <section class="extras" id="extras">
+        <div class="inicio">
+            <h2>
+                Extras
+            </h2>
+            <div class="extras-grid">
+                <div class="extra">
+                    <img src="papas.png">
+                    <h3>Papas fritas</h3>
+                    <p>$60</p>
+                    <button>Agregar</button>
+                </div>
+                <div class="extra">
+                    <img src="papas.png" alt="papas">
+                    <h3>Papas especiales</h3>
+                    <p>$67</p>
+                    <button>Agregar</button>
+                </div>
+                <div class="extra">
+                    <img src="alitas.png" alt="alitas">
+                    <h3>Alitas</h3>
+                    <p>$120</p>
+                    <button>Agregar</button>
+                </div>
+                <div class="extra">
+                    <img src="dedos.png" alt="dedos de queso">
+                    <h3>Dedos de queso</h3>
+                    <p>$100</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- =========================
+         Bebidas corregir
+    ========================== -->
+
+    <section class="bebidas" id="bebidas">
+        <div class="inicio">
+            <h2>Bebidas</h2>
+            <div class="bebidas-grid"></div>
+            <div class="bebida">
+                <img src="coca1.png" alt="coca">
+                <h3>Coca de 2L</h3>
+                <p>$40</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- =========================
+         TAMAÑOS
+    ========================== -->
+
+    <section class="tamaños" id="tamaños">
+
+        <div class="titulo">
+
+            <h2>
+                Elige tu tamaño
+            </h2>
+
+        </div>
+
+
+        <div class="tamaños-grid">
+
+
+            <div class="tamaño">
+
+                <div class="circulo chico"></div>
+
+                <h3>
+                    Personal
+                </h3>
+
+                <p>
+                    Para 1 persona
+                </p>
+
+                <strong>
+                    $99
+                </strong>
+
+            </div>
+
+
+            <div class="tamaño">
+
+                <div class="circulo mediano"></div>
+
+                <h3>
+                    Mediana
+                </h3>
+
+                <p>
+                    Para 2 personas
+                </p>
+
+                <strong>
+                    $149
+                </strong>
+
+            </div>
+
+
+            <div class="tamaño">
+
+                <div class="circulo grande"></div>
+
+                <h3>
+                    Grande
+                </h3>
+
+                <p>
+                    Para 3-4 personas
+                </p>
+
+                <strong>
+                    $199
+                </strong>
+
+            </div>
+
+
+            <div class="tamaño">
+
+                <div class="circulo familiar"></div>
+
+                <h3>
+                    Familiar
+                </h3>
+
+                <p>
+                    Para 5-6 personas
+                </p>
+
+                <strong>
+                    $249
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         INGREDIENTES
+    ========================== -->
+
+    <section class="ingredientes" id="ingredientes">
+
+        <div class="titulo">
+
+            <h2>
+                Personaliza tu pizza
+            </h2>
+
+            <p>
+                Agrega los ingredientes que quieras
+            </p>
+
+        </div>
+
+
+        <div class="ingredientes-grid">
+
+
+            <label>
+                <input type="checkbox">
+                Pepperoni
+                <span>+$20</span>
+            </label>
+
+
+            <label>
+                <input type="checkbox">
+                Jamón
+                <span>+$20</span>
+            </label>
+
+
+            <label>
+                <input type="checkbox">
+                Tocino
+                <span>+$25</span>
+            </label>
+
+
+            <label>
+                <input type="checkbox">
+                Champiñones
+                <span>+$15</span>
+            </label>
+
+
+            <label>
+                <input type="checkbox">
+                Piña
+                <span>+$15</span>
+            </label>
+
+
+            <label>
+                <input type="checkbox">
+                Salchicha
+                <span>+$20</span>
+            </label>
+
+
+            <label>
+                <input type="checkbox">
+                Extra queso
+                <span>+$25</span>
+            </label>
+
+
+            <label>
+                <input type="checkbox">
+                Aceitunas
+                <span>+$15</span>
+            </label>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         TIPO DE MASA
+    ========================== -->
+
+    <section class="tipo">
+
+        <div class="titulo">
+
+            <h2>
+                Elige tu tipo de masa
+            </h2>
+
+        </div>
+
+
+        <div class="tipo-grid">
+
+            <label>
+                <input
+                    type="radio"
+                    name="masa"
+                >
+                Tradicional
+            </label>
+
+
+            <label>
+                <input
+                    type="radio"
+                    name="masa"
+                >
+                Delgada
+            </label>
+
+
+            <label>
+                <input
+                    type="radio"
+                    name="masa"
+                >
+                Rellena de queso
+            </label>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         EXTRAS debe ir lo de arriba
+    ========================== -->
+
+    <section class="extras" id="extras">
+
+        <div class="titulo">
+
+            <h2>
+                Extras
+            </h2>
+
+        </div>
+
+
+        <div class="extras-grid">
+
+
+            <div class="extra">
+
+                <img
+                    src="IMG/papas.jpg"
+                    alt="Papas"
+                >
+
+                <h3>
+                    Papas
+                </h3>
+
+                <p>
+                    $49
+                </p>
+
+                <button>
+                    Agregar
+                </button>
+
+            </div>
+
+
+            <div class="extra">
+
+                <img
+                    src="IMG/papas-especiales.jpg"
+                    alt="Papas especiales"
+                >
+
+                <h3>
+                    Papas especiales
+                </h3>
+
+                <p>
+                    $69
+                </p>
+
+                <button>
+                    Agregar
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         BEBIDAS aqui debe ir lo de arriba
+    ========================== -->
+
+    <section class="bebidas" id="bebidas">
+
+        <div class="titulo">
+
+            <h2>
+                Refrescos
+            </h2>
+
+        </div>
+
+
+        <div class="bebidas-grid">
+
+
+            <div>
+                <h3>
+                    Refresco 600 ml
+                </h3>
+
+                <span>
+                    $25
+                </span>
+
+                <button>
+                    Agregar
+                </button>
+            </div>
+
+
+            <div>
+                <h3>
+                    Refresco 1.5 L
+                </h3>
+
+                <span>
+                    $39
+                </span>
+
+                <button>
+                    Agregar
+                </button>
+            </div>
+
+
+            <div>
+                <h3>
+                    Refresco 2.5 L
+                </h3>
+
+                <span>
+                    $49
+                </span>
+
+                <button>
+                    Agregar
+                </button>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         PROMOCIONES
+    ========================== -->
+
+    <section class="promociones" id="promociones">
+
+        <div class="titulo">
+
+            <h2>
+                Promociones
+            </h2>
+
+        </div>
+
+
+        <div class="promociones-grid">
+
+
+            <article>
+
+                <span class="etiqueta">
+                    2X1
+                </span>
+
+                <h3>
+                    2x1 en pizzas
+                </h3>
+
+                <p>
+                    Compra una pizza y recibe
+                    otra del mismo tamaño.
+                </p>
+
+                <button>
+                    Aprovechar promoción
+                </button>
+
+            </article>
+
+
+            <article>
+
+                <span class="etiqueta">
+                    TEMPORADA
+                </span>
+
+                <h3>
+                    Promoción de temporada
+                </h3>
+
+                <p>
+                    Descubre nuestra promoción
+                    especial de esta temporada.
+                </p>
+
+                <button>
+                    Ver promoción
+                </button>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         PEDIDO
+    ========================== -->
+
+    <section class="pedido" id="pedidos">
+
+        <div class="titulo">
+
+            <h2>
+                Realiza tu pedido
+            </h2>
+
+            <p>
+                Déjanos los datos para preparar
+                tu pedido.
+            </p>
+
+        </div>
+
+
+        <form class="formulario-pedido">
+
+
+            <div>
+
+                <label>
+                    Nombre
+                </label>
+
+                <input
+                    type="text"
+                    placeholder="Tu nombre"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Teléfono
+                </label>
+
+                <input
+                    type="tel"
+                    placeholder="Tu teléfono"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Ubicación
+                </label>
+
+                <input
+                    type="text"
+                    placeholder="Dirección de entrega"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Método de pago
+                </label>
+
+                <select>
+
+                    <option>
+                        Selecciona una opción
+                    </option>
+
+                    <option>
+                        Efectivo
+                    </option>
+
+                    <option>
+                        Tarjeta
+                    </option>
+
+                    <option>
+                        Transferencia
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    ¿Cuánto vas a pagar?
+                </label>
+
+                <input
+                    type="number"
+                    placeholder="$0.00"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Tiempo de entrega
+                </label>
+
+                <select>
+
+                    <option>
+                        Selecciona
+                    </option>
+
+                    <option>
+                        30 minutos
+                    </option>
+
+                    <option>
+                        45 minutos
+                    </option>
+
+                    <option>
+                        60 minutos
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="campo-completo">
+
+                <label>
+                    Opinión (opcional)
+                </label>
+
+                <textarea
+                    placeholder="Déjanos tu opinión..."
+                ></textarea>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="boton-pedido"
+            >
+                CONFIRMAR PEDIDO
+            </button>
+
+        </form>
+
+    </section>
+
+
+    <!-- =========================
+         CARRITO
+    ========================== -->
+
+    <section class="carrito" id="carrito">
+
+        <div class="titulo">
+
+            <h2>
+                🛒 Tu carrito
+            </h2>
+
+        </div>
+
+
+        <div class="carrito-contenido">
+
+            <p>
+                Tu carrito está vacío.
+            </p>
+
+            <strong>
+                Total: $0.00
+            </strong>
+
+            <button>
+                Continuar con el pedido
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         ENTREGA
+    ========================== -->
+
+    <section class="entrega">
+
+        <div class="titulo">
+
+            <h2>
+                Tu pedido está en camino
+            </h2>
+
+        </div>
+
+
+        <div class="entrega-info">
+
+            <div>
+
+                <h3>
+                    Preparando tu pizza
+                </h3>
+
+                <p>
+                    Tu pizza se está preparando
+                    al horno.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h3>
+                    Repartidor
+                </h3>
+
+                <p>
+                    Nombre del repartidor:
+                    <strong>
+                        Pendiente
+                    </strong>
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h3>
+                    📍 Ubicación
+                </h3>
+
+                <p>
+                    Tu pedido llegará a
+                    la dirección indicada.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h3>
+                     Atención por WhatsApp
+                </h3>
+
+                <a
+                    href="https://wa.me/524491234567"
+                    class="whatsapp"
+                >
+                    Contactar por WhatsApp
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         SUCURSALES
+    ========================== -->
+
+    <section class="sucursales" id="sucursales">
+
+        <div class="titulo">
+
+            <h2>
+                Nuestras sucursales
+            </h2>
+
+            <p>
+                Encuentra la pizzería más cercana.
+            </p>
+
+        </div>
+
+
+        <div class="sucursales-grid">
+
+
+            <article>
+
+                <h3>
+                    Galaxy Pizza Centro
+                </h3>
+
+                <p>
+                    📍 Av. Principal #123
+                </p>
+
+                <p>
+                    449-123-4567
+                </p>
+
+                <button>
+                    Ver ubicación
+                </button>
+
+            </article>
+
+
+            <article>
+
+                <h3>
+                    Galaxy Pizza Norte
+                </h3>
+
+                <p>
+                    📍 Blvd. Norte #456
+                </p>
+
+                <p>
+                     449-234-5678
+                </p>
+
+                <button>
+                    Ver ubicación
+                </button>
+
+            </article>
+
+
+            <article>
+
+                <h3>
+                    Galaxy Pizza Sur
+                </h3>
+
+                <p>
+                    📍 Av. del Sol #789
+                </p>
+
+                <p>
+                     449-345-6789
+                </p>
+
+                <button>
+                    Ver ubicación
+                </button>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         BOLSA DE TRABAJO
+    ========================== -->
+
+    <section class="trabajo">
+
+        <div class="titulo">
+
+            <h2>
+                Bolsa de trabajo
+            </h2>
+
+            <p>
+                Forma parte de Galaxy Pizza.
+            </p>
+
+        </div>
+
+
+        <form>
+
+            <input
+                type="text"
+                placeholder="Nombre completo"
+            >
+
+            <input
+                type="email"
+                placeholder="Correo electrónico"
+            >
+
+            <input
+                type="tel"
+                placeholder="Teléfono"
+            >
+
+            <select>
+
+                <option>
+                    Selecciona una vacante
+                </option>
+
+                <option>
+                    Repartidor
+                </option>
+
+                <option>
+                    Cocinero
+                </option>
+
+                <option>
+                    Atención al cliente
+                </option>
+
+            </select>
+
+
+            <button>
+                ENVIAR SOLICITUD
+            </button>
+
+        </form>
+
+    </section>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
+
+        <div class="footer-contenido">
+
+
+            <div>
+
+                <h3>
+                    Galaxy Pizza
+                </h3>
+
+                <p>
+                    El sabor de otro mundo.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h3>
+                    Información
+                </h3>
+
+                <a href="#pizzas">
+                    Pizzas
+                </a>
+
+                <a href="#promociones">
+                    Promociones
+                </a>
+
+                <a href="#sucursales">
+                    Sucursales
+                </a>
+
+                <a href="#trabajo">
+                    Bolsa de trabajo
+                </a>
+
+            </div>
+
+
+            <div>
+
+                <h3>
+                    Atención
+                </h3>
+
+                <p>
+                     449-123-4567
+                </p>
+
+                <p>
+                    WhatsApp
+                </p>
+
+                <p>
+                    📍 Aguascalientes, México
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="derechos">
+
+            © 2026 Galaxy Pizza.
+            Todos los derechos reservados.
+
+        </div>
+
+    </footer>
+
+
+</body>
+
+</html>

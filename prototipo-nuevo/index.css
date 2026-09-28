@@ -1,0 +1,313 @@
+/* ===== COLORES ESPACIALES ===== */
+:root {
+  --negro: #0a0a0f;
+  --blanco: #ffffff;
+  --azul: #1e3a8a;
+  --morado: #6b21a8;
+  --verde: #10b981;
+  --gris-oscuro: #111827;
+  --gris-medio: #1f2937;
+  --gris-claro: #e5e7eb;
+}
+
+/* ===== RESET Y BASE ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--negro);
+  color: var(--blanco);
+  line-height: 1.5;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ===== BOTONES ===== */
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  transition: 0.2s;
+}
+
+.btn-primary {
+  background: var(--morado);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #7e22ce;
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 1px solid var(--blanco);
+  color: white;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.btn-full {
+  width: 100%;
+  margin-top: 12px;
+}
+
+/* ===== HEADER ===== */
+.header {
+  background: #111;
+  padding: 16px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid #222;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.nav a {
+  color: white;
+  margin: 0 12px;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.nav a:hover {
+  color: var(--verde);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.tiempo-entrega {
+  font-size: 14px;
+  color: #aaa;
+}
+
+/* ===== HERO ===== */
+.hero {
+  text-align: center;
+  padding: 100px 20px;
+}
+
+.hero h1 {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.hero p {
+  font-size: 20px;
+  margin-bottom: 32px;
+  color: #ccc;
+}
+
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ===== MENÚ ===== */
+.menu {
+  padding: 60px 0;
+  border-bottom: 1px solid #222;
+}
+
+.menu h2 {
+  margin-bottom: 24px;
+}
+
+.categorias {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.seccion-titulo {
+  margin-top: 60px;
+  margin-bottom: 20px;
+}
+
+/* ===== GRID DE PRODUCTOS ===== */
+.productos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+  margin-top: 20px;
+}
+
+.producto-card {
+  background: var(--gris-oscuro);
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid #333;
+}
+
+.producto-img {
+  width: 100%;
+  height: 180px;
+  background: #222;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.producto-card h3 {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.producto-card p {
+  color: #aaa;
+  font-size: 15px;
+}
+
+/* ===== PERSONALIZADOR ===== */
+.personalizador {
+  background: var(--gris-oscuro);
+  padding: 28px;
+  border-radius: 12px;
+  margin-top: 40px;
+  border: 1px solid #333;
+}
+
+.personalizador h3 {
+  margin-bottom: 20px;
+}
+
+.label {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.tamanos,
+.ingredientes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.tamano-btn,
+.ingrediente {
+  padding: 10px 18px;
+  border: 1px solid #444;
+  border-radius: 50px;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.tamano-btn:hover,
+.ingrediente:hover {
+  border-color: var(--morado);
+}
+
+.tamano-btn.active,
+.ingrediente.selected {
+  background: var(--morado);
+  border-color: var(--morado);
+}
+
+.ingrediente.quitar {
+  opacity: 0.4;
+  text-decoration: line-through;
+}
+
+.personalizador-footer {
+  margin-top: 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.tiempo {
+  font-size: 14px;
+  color: #aaa;
+  margin-top: 4px;
+}
+
+/* ===== PROMOCIONES ===== */
+.promociones {
+  padding: 60px 0;
+  border-bottom: 1px solid #222;
+}
+
+.promociones h2 {
+  margin-bottom: 24px;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  background: #111;
+  padding: 40px 0;
+  text-align: center;
+}
+
+.footer-logo {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.footer-slogan {
+  color: #aaa;
+  margin-bottom: 16px;
+}
+
+.footer-copy {
+  font-size: 14px;
+  color: #666;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .hero h1 {
+    font-size: 32px;
+  }
+
+  .tiempo-entrega {
+    display: none;
+  }
+}

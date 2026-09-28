@@ -1,0 +1,1206 @@
+:root {
+    --principal: #E85D04;
+    --secundario: #F4A261;
+    --oscuro: #1A1A1A;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Orbitron", sans-serif;
+    background: var(--fondo);
+    color: var(--oscuro);
+
+}
+
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+}
+
+
+/* =========================
+   COLORES PRINCIPALES
+
+   CAMBIA ESTOS COLORES
+   SI QUIERES CAMBIAR
+   TODA LA PÁGINA
+========================= */
+
+:root {
+    --principal: #E85D04;
+    --secundario: #F4A261;
+    --oscuro: #171717;
+    --fondo: #FFF8F0;
+    --gris: #6B6B6B;
+    --blanco: #E8E0D5;
+}
+
+
+/* =========================
+   PROMOCIÓN SUPERIOR
+========================= */
+
+.barra-superior {
+    background: #050816;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    padding: 10px;
+    font-size: 13px;
+}
+
+
+/* =========================
+   ENCABEZADO
+========================= */
+
+.encabezado {
+    min-height: 95px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 4px 6%;
+
+    background: var(--oscuro)
+}
+
+.logo {
+    width: 145px;
+    height: 145px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: transparent;
+    margin: -35px 0;
+}
+
+.logo img {
+    width: 135px;
+    height: 135px;
+    object-fit: contain;
+    background: transparent;
+    mix-blend-mode: lighten;
+}
+.buscador {
+    width: 40%;
+    height: 45px;
+
+    display: flex;
+    align-items: center;
+
+    background-color: white;
+
+    border: 1px solid #f7f3f3;
+    border-radius: 25px;
+
+    overflow: hidden;
+}
+
+.buscador input {
+    flex: 1;
+    height: 100%;
+
+    padding: 0 20px;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+}
+
+.buscador button {
+    width: 60px;
+    height: 100%;
+
+    padding: 0;
+    margin: 0;
+
+    border: none;
+
+    background: transparent;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+}
+
+.buscador button img {
+    width: 20px;
+    height: 20px;
+
+    object-fit: contain;
+    display: block;
+}
+
+.acciones {
+    color: #fdfffd;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.acciones a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+
+nav {
+    height: 55px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 40px;
+
+    background: #FFF3E6;
+    border-bottom: 1px solid var(--borde);
+    border: none;
+}
+
+nav a {
+    color: var(--oscuro);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+
+nav a:hover {
+    color: var(--principal);
+}
+
+
+
+
+/* =========================
+   MENÚ
+========================= */
+
+.menu {
+    background: var(--blanco);
+
+    border-top: 1px solid none;
+    border-bottom: 1px solid none;
+
+    min-height: 55px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 35px;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 10;
+}
+
+.menu a {
+    font-size: 15px;
+
+    font-weight: bold;
+
+    transition: 0.2s;
+}
+
+.menu a:hover {
+    color: var(--principal);
+}
+
+
+/* =========================
+   BANNER
+========================= */
+
+.banner {
+    width: 92%;
+    max-width: 1250px;
+
+    margin: 30px auto;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    align-items: center;
+
+    min-height: 450px;
+
+    background: #fefefffd;
+
+    overflow: hidden;
+}
+
+.banner-texto {
+    padding: 60px;
+}
+
+.banner-texto span {
+    color: var(--principal);
+
+    font-weight: bold;
+
+    letter-spacing: 2px;
+}
+
+.banner-texto h1 {
+    font-size: 52px;
+
+    line-height: 1.05;
+
+    margin: 15px 0;
+}
+
+.banner-texto p {
+    color: var(--gris);
+
+    font-size: 18px;
+
+    line-height: 1.6;
+
+    margin-bottom: 30px;
+}
+
+.boton {
+    display: inline-block;
+
+    background: var(--principal);
+
+    color: white;
+
+    padding: 15px 30px;
+
+    font-weight: bold;
+
+    border-radius: 4px;
+}
+
+.banner-imagen {
+    height: 100%;
+}
+
+.banner-imagen img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+/* =========================
+   TÍTULOS
+========================= */
+
+.titulo {
+    text-align: center;
+
+    margin-bottom: 40px;
+}
+
+.titulo h2 {
+    font-size: 34px;
+
+    margin-bottom: 10px;
+}
+
+.titulo p {
+    color: var(--gris);
+}
+
+
+/* =========================
+   CATEGORÍAS
+========================= */
+
+.categorias {
+    width: 92%;
+    max-width: 1250px;
+
+    margin: 70px auto;
+}
+
+.categorias > h2 {
+    text-align: center;
+
+    font-size: 32px;
+
+    margin-bottom: 35px;
+}
+
+.categorias-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(6, 1fr);
+
+    gap: 20px;
+}
+
+.categoria {
+    text-align: center;
+
+    border: 1px solid #e5e5e5;
+
+    padding: 20px;
+
+    transition: 0.3s;
+}
+
+.categoria:hover {
+    transform: translateY(-5px);
+
+    border-color: var(--principal);
+}
+
+.categoria img {
+    width: 90px;
+    height: 90px;
+
+    object-fit: contain;
+
+    margin: 0 auto 15px;
+}
+
+.categoria h3 {
+    font-size: 16px;
+}
+
+
+/* =========================
+   PRODUCTOS
+========================= */
+
+.productos {
+    width: 92%;
+    max-width: 1250px;
+
+    margin: 80px auto;
+}
+
+.productos-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 25px;
+}
+
+.producto {
+    background: white;
+
+    border: 1px solid #e5e5e5;
+
+    transition: 0.3s;
+}
+
+.producto:hover {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+
+    transform: translateY(-4px);
+}
+
+.producto-imagen {
+    height: 250px;
+
+    overflow: hidden;
+}
+
+.producto-imagen img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: 0.4s;
+}
+
+.producto:hover img {
+    transform: scale(1.05);
+}
+
+.producto-info {
+    padding: 20px;
+}
+
+.producto-info h3 {
+    font-size: 22px;
+
+    margin-bottom: 10px;
+}
+
+.producto-info p {
+    color: var(--gris);
+
+    line-height: 1.5;
+
+    min-height: 48px;
+}
+
+.precio {
+    display: block;
+
+    font-size: 22px;
+
+    font-weight: bold;
+
+    margin: 15px 0;
+}
+
+.producto button {
+    width: 100%;
+
+    padding: 13px;
+
+    background: var(--principal);
+
+    color: white;
+
+    font-weight: bold;
+}
+
+.producto button:hover {
+    background: var(--oscuro);
+}
+
+
+/* =========================
+   TAMAÑOS
+========================= */
+
+.tamanos {
+    width: 92%;
+    max-width: 1250px;
+
+    margin: 80px auto;
+}
+
+.tamanos-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 25px;
+}
+
+.tamano {
+    text-align: center;
+
+    border: 1px solid #ddd;
+
+    padding: 30px;
+}
+
+.circulo {
+    margin: auto;
+
+    border-radius: 50%;
+
+    background: #ddd;
+
+    border: 8px solid #b56b30;
+}
+
+.chico {
+    width: 70px;
+    height: 70px;
+}
+
+.mediano {
+    width: 100px;
+    height: 100px;
+}
+
+.grande {
+    width: 130px;
+    height: 130px;
+}
+
+.familiar {
+    width: 160px;
+    height: 160px;
+}
+
+.tamano h3 {
+    margin-top: 20px;
+
+    font-size: 22px;
+}
+
+.tamano p {
+    color: var(--gris);
+
+    margin: 8px 0;
+}
+
+.tamano strong {
+    font-size: 21px;
+}
+
+
+/* =========================
+   INGREDIENTES
+========================= */
+
+.ingredientes {
+    background: var(--fondo);
+
+    padding: 80px 8%;
+}
+
+.ingredientes-grid {
+    max-width: 1000px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 15px;
+}
+
+.ingredientes label {
+    background: white;
+
+    padding: 18px;
+
+    border: 1px solid #ddd;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+.ingredientes span {
+    margin-left: auto;
+
+    font-weight: bold;
+
+    color: var(--principal);
+}
+
+
+/* =========================
+   TIPO DE MASA
+========================= */
+
+.tipo {
+    width: 92%;
+    max-width: 1000px;
+
+    margin: 80px auto;
+}
+
+.tipo-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 20px;
+}
+
+.tipo label {
+    padding: 20px;
+
+    border: 1px solid #ddd;
+
+    text-align: center;
+}
+
+
+/* =========================
+   EXTRAS
+========================= */
+
+.extras {
+    width: 92%;
+    max-width: 1000px;
+
+    margin: 80px auto;
+}
+
+.extras-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 25px;
+}
+
+.extra {
+    border: 1px solid #ddd;
+
+    padding-bottom: 20px;
+
+    text-align: center;
+}
+
+.extra img {
+    width: 100%;
+
+    height: 220px;
+
+    object-fit: cover;
+}
+
+.extra h3 {
+    margin: 15px 0 5px;
+}
+
+.extra p {
+    font-weight: bold;
+
+    font-size: 20px;
+
+    margin-bottom: 15px;
+}
+
+.extra button,
+.bebidas button {
+    padding: 10px 20px;
+
+    background: var(--principal);
+
+    color: white;
+}
+
+
+/* =========================
+   BEBIDAS
+========================= */
+
+.bebidas {
+    width: 92%;
+    max-width: 1000px;
+
+    margin: 80px auto;
+}
+
+.bebidas-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 20px;
+}
+
+.bebidas-grid > div {
+    border: 1px solid #ddd;
+
+    padding: 25px;
+
+    text-align: center;
+}
+
+.bebidas h3 {
+    margin-bottom: 10px;
+}
+
+.bebidas span {
+    display: block;
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+    margin-bottom: 15px;
+}
+
+
+/* =========================
+   PROMOCIONES
+========================= */
+
+.promociones {
+    background: var(--fondo);
+
+    padding: 80px 8%;
+}
+
+.promociones-grid {
+    max-width: 1100px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 25px;
+}
+
+.promociones article {
+    background: white;
+
+    padding: 40px;
+
+    border: 1px solid #ddd;
+
+    text-align: center;
+}
+
+.etiqueta {
+    display: inline-block;
+
+    background: var(--secundario);
+
+    padding: 8px 15px;
+
+    font-weight: bold;
+
+    margin-bottom: 15px;
+}
+
+.promociones h3 {
+    font-size: 28px;
+
+    margin-bottom: 15px;
+}
+
+.promociones p {
+    color: var(--gris);
+
+    margin-bottom: 25px;
+}
+
+.promociones button {
+    background: var(--principal);
+
+    color: white;
+
+    padding: 13px 20px;
+
+    font-weight: bold;
+}
+
+
+/* =========================
+   PEDIDO
+========================= */
+
+.pedido {
+    width: 92%;
+    max-width: 1000px;
+
+    margin: 80px auto;
+}
+
+.formulario-pedido {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 20px;
+}
+
+.formulario-pedido label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-weight: bold;
+}
+
+.formulario-pedido input,
+.formulario-pedido select,
+.formulario-pedido textarea {
+    width: 100%;
+
+    padding: 13px;
+
+    border: 1px solid #ccc;
+
+    font-family: inherit;
+}
+
+.campo-completo {
+    grid-column: 1 / -1;
+}
+
+.formulario-pedido textarea {
+    min-height: 120px;
+}
+
+.boton-pedido {
+    grid-column: 1 / -1;
+
+    background: var(--principal);
+
+    color: white;
+
+    padding: 16px;
+
+    font-weight: bold;
+}
+
+
+/* =========================
+   CARRITO
+========================= */
+
+.carrito {
+    width: 92%;
+    max-width: 800px;
+
+    margin: 80px auto;
+}
+
+.carrito-contenido {
+    border: 1px solid #ddd;
+
+    padding: 40px;
+
+    text-align: center;
+}
+
+.carrito-contenido p {
+    color: var(--gris);
+
+    margin-bottom: 20px;
+}
+
+.carrito-contenido strong {
+    display: block;
+
+    font-size: 24px;
+
+    margin-bottom: 20px;
+}
+
+.carrito-contenido button {
+    background: var(--principal);
+
+    color: white;
+
+    padding: 14px 25px;
+}
+
+
+/* =========================
+   ENTREGA
+========================= */
+
+.entrega {
+    background: var(--fondo);
+
+    padding: 80px 8%;
+}
+
+.entrega-info {
+    max-width: 1100px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 20px;
+}
+
+.entrega-info > div {
+    background: white;
+
+    padding: 25px;
+
+    border: 1px solid #ddd;
+}
+
+.entrega-info h3 {
+    margin-bottom: 12px;
+}
+
+.whatsapp {
+    display: inline-block;
+
+    margin-top: 10px;
+
+    background: #25d366;
+
+    color: white;
+
+    padding: 10px;
+
+    font-weight: bold;
+}
+
+
+/* =========================
+   SUCURSALES
+========================= */
+
+.sucursales {
+    width: 92%;
+    max-width: 1200px;
+
+    margin: 80px auto;
+}
+
+.sucursales-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 25px;
+}
+
+.sucursales article {
+    border: 1px solid #ddd;
+
+    padding: 30px;
+}
+
+.sucursales h3 {
+    margin-bottom: 15px;
+}
+
+.sucursales p {
+    color: var(--gris);
+
+    margin-bottom: 8px;
+}
+
+.sucursales button {
+    margin-top: 15px;
+
+    padding: 11px 18px;
+
+    background: var(--principal);
+
+    color: white;
+}
+
+
+/* =========================
+   BOLSA DE TRABAJO
+========================= */
+
+.trabajo {
+    background: var(--fondo);
+
+    padding: 80px 8%;
+}
+
+.trabajo form {
+    max-width: 700px;
+
+    margin: auto;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 15px;
+}
+
+.trabajo input,
+.trabajo select {
+    padding: 14px;
+
+    border: 1px solid #ccc;
+}
+
+.trabajo button {
+    padding: 15px;
+
+    background: var(--principal);
+
+    color: white;
+
+    font-weight: bold;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    background: var(--oscuro);
+
+    color: white;
+
+    padding: 50px 8%;
+}
+
+.footer-contenido {
+    max-width: 1200px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 40px;
+}
+
+.footer-contenido h3 {
+    margin-bottom: 15px;
+}
+
+.footer-contenido p,
+.footer-contenido a {
+    color: #ccc;
+
+    margin-bottom: 10px;
+
+    display: block;
+}
+
+.derechos {
+    border-top: 1px solid #444;
+
+    margin-top: 30px;
+
+    padding-top: 20px;
+
+    text-align: center;
+
+    color: #aaa;
+}
+
+
+/* =========================
+   CELULAR
+========================= */
+
+@media (max-width: 900px) {
+
+    .categorias-grid {
+        grid-template-columns:
+            repeat(3, 1fr);
+    }
+
+    .productos-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .tamanos-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .entrega-info {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .sucursales-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .encabezado {
+        flex-wrap: wrap;
+
+        padding: 20px 0;
+    }
+
+    .buscador {
+        order: 3;
+
+        width: 100%;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .menu {
+        overflow-x: auto;
+
+        justify-content: flex-start;
+
+        padding: 15px;
+
+        gap: 25px;
+    }
+
+    .banner {
+        grid-template-columns: 1fr;
+    }
+
+    .banner-texto {
+        padding: 35px;
+    }
+
+    .banner-texto h1 {
+        font-size: 38px;
+    }
+
+    .categorias-grid,
+    .productos-grid,
+    .tamanos-grid,
+    .ingredientes-grid,
+    .tipo-grid,
+    .extras-grid,
+    .bebidas-grid,
+    .promociones-grid,
+    .sucursales-grid,
+    .entrega-info,
+    .footer-contenido {
+        grid-template-columns: 1fr;
+    }
+
+    .formulario-pedido {
+        grid-template-columns: 1fr;
+    }
+
+    .campo-completo {
+        grid-column: auto;
+    }
+
+    .acciones {
+        width: 100%;
+
+        justify-content: center;
+    }
+}
