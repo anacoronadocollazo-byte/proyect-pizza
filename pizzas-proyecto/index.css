@@ -456,7 +456,7 @@ button { cursor: pointer; border: none; font-family: inherit; }
 .reseñas .titulo h2::after {
     color: #fbbf24;
 }
-.resenas-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.reseñas-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
 .reseña {
     background: var(--card); border: 1.5px solid var(--line);
     border-radius: 14px; padding: 18px;
