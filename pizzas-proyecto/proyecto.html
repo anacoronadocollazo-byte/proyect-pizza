@@ -40,8 +40,10 @@
         <div class="acciones">
             <button type="button" id="btn-login" class="btn-cuenta">Iniciar sesión</button>
             <button type="button" id="btn-registro" class="btn-cuenta btn-cuenta-outline">Registrarse</button>
-            <a href="#pedido">Mi pedido</a>
-            <a href="#carrito" class="btn-carrito-header">
+            <!-- Mi pedido abre en otra ventana/pestaña -->
+  
+            <!-- Carrito abre modal, no navega a sección -->
+            <a href="#" id="btn-abrir-carrito" class="btn-carrito-header">
                 Carrito <span id="contador-carrito" class="badge">0</span>
             </a>
         </div>
@@ -52,7 +54,7 @@
         <a href="#inicio">Inicio</a>
         <a href="#pizzas">Pizzas</a>
         <a href="#tamanos">Tamaños</a>
-        <a href="#ingredientes">Ingredientes</a>
+        <a href="#extras">Ingredientes</a>
         <a href="#promociones">Promociones</a>
         <a href="#resenas">Reseñas</a>
         <a href="#sucursales">Sucursales</a>
@@ -85,13 +87,13 @@
                 <img src="pizza.png" alt="Pizzas">
                 <h3>Pizzas</h3>
             </a>
-            <a href="#tamanos" class="categoria">
+            <a href="#tamaños" class="categoria">
                 <img src="tamaños.png" alt="Tamaños">
                 <h3>Tamaños</h3>
             </a>
-            <a href="#ingredientes" class="categoria">
-                <img src="ingredintes.png" alt="Ingredientes">
-                <h3>Ingredientes</h3>
+            <a href="#pizzas" class="categoria">
+                <img src="ingredintes.png" alt="Arma tu pizza">
+                <h3>Arma tu pizza</h3>
             </a>
             <a href="#extras" class="categoria">
                 <img src="papasyextra.png" alt="Papas y extras">
@@ -109,81 +111,100 @@
     </section>
 
     <!-- Pizzas -->
-    <section class="productos" id="pizzas">
+     <section class="productos" id="pizzas">
         <div class="titulo">
             <h2>Nuestras pizzas</h2>
-            <p>Elige tu favorita y personalízala</p>
         </div>
 
         <div class="productos-grid">
-            <article class="producto" data-id="pepperoni" data-nombre="Pepperoni" data-precio="149" data-img="pizzapeperoni.png">
-                <div class="producto-imagen">
+            <article class="producto" data-id="pepperoni" data-nombre="Pepperoni" data-precio="149" data-img="pizzapeperoni.png"
+                data-incluye="Salsa de tomate, Queso mozzarella, Pepperoni">
+                <div class="producto-imagen" title="Clic para personalizar">
                     <img src="pizzapeperoni.png" alt="Pizza Pepperoni">
                 </div>
                 <div class="producto-info">
                     <h3>Pepperoni</h3>
                     <p>Salsa de tomate, queso mozzarella y pepperoni.</p>
                     <span class="precio">$149</span>
-                    <button class="btn-personalizar" type="button">Personalizar</button>
+                    <button class="btn-agregar-pizza" type="button">Agregar</button>
                 </div>
             </article>
 
-            <article class="producto" data-id="hawaiana" data-nombre="Hawaiana" data-precio="159" data-img="pizzahawaiana.png">
-                <div class="producto-imagen">
+            <article class="producto" data-id="hawaiana" data-nombre="Hawaiana" data-precio="159" data-img="pizzahawaiana.png"
+                data-incluye="Salsa de tomate, Queso mozzarella, Jamón, Piña">
+                <div class="producto-imagen" title="Clic para personalizar">
                     <img src="pizzahawaiana.png" alt="Pizza Hawaiana">
                 </div>
                 <div class="producto-info">
                     <h3>Hawaiana</h3>
                     <p>Jamón, piña y queso mozzarella.</p>
                     <span class="precio">$159</span>
-                    <button class="btn-personalizar" type="button">Personalizar</button>
+                    <button class="btn-agregar-pizza" type="button">Agregar</button>
                 </div>
             </article>
 
-            <article class="producto" data-id="carnes" data-nombre="Carnes" data-precio="179" data-img="pizzacarne.png">
-                <div class="producto-imagen">
+            <article class="producto" data-id="carnes" data-nombre="Carnes" data-precio="179" data-img="pizzacarne.png"
+                data-incluye="Salsa de tomate, Queso mozzarella, Pepperoni, Jamón, Salchicha, Tocino">
+                <div class="producto-imagen" title="Clic para personalizar">
                     <img src="pizzacarne.png" alt="Pizza Carnes">
                 </div>
                 <div class="producto-info">
                     <h3>Carnes</h3>
                     <p>Pepperoni, jamón, salchicha y tocino.</p>
                     <span class="precio">$179</span>
-                    <button class="btn-personalizar" type="button">Personalizar</button>
+                    <button class="btn-agregar-pizza" type="button">Agregar</button>
                 </div>
             </article>
 
-            <article class="producto" data-id="vegetariana" data-nombre="Vegetariana" data-precio="169" data-img="pizzavegetariana.png">
-                <div class="producto-imagen">
+            <article class="producto" data-id="vegetariana" data-nombre="Vegetariana" data-precio="169" data-img="pizzavegetariana.png"
+                data-incluye="Salsa de tomate, Queso mozzarella, Champiñones, Pimiento, Cebolla, Aceitunas">
+                <div class="producto-imagen" title="Clic para personalizar">
                     <img src="pizzavegetariana.png" alt="Pizza Vegetariana">
                 </div>
                 <div class="producto-info">
                     <h3>Vegetariana</h3>
                     <p>Champiñones, pimiento, cebolla y aceitunas.</p>
                     <span class="precio">$169</span>
-                    <button class="btn-personalizar" type="button">Personalizar</button>
+                    <button class="btn-agregar-pizza" type="button">Agregar</button>
                 </div>
             </article>
 
-            <article class="producto" data-id="cuatroquesos" data-nombre="Cuatro Quesos" data-precio="179" data-img="pizzaqueso.png">
-                <div class="producto-imagen">
+            <article class="producto" data-id="cuatroquesos" data-nombre="Cuatro Quesos" data-precio="179" data-img="pizzaqueso.png"
+                data-incluye="Salsa de tomate, Mozzarella, Cheddar, Parmesano, Queso azul">
+                <div class="producto-imagen" title="Clic para personalizar">
                     <img src="pizzaqueso.png" alt="Pizza Cuatro Quesos">
                 </div>
                 <div class="producto-info">
                     <h3>Cuatro Quesos</h3>
                     <p>Mezcla de quesos seleccionados.</p>
                     <span class="precio">$179</span>
-                    <button class="btn-personalizar" type="button">Personalizar</button>
+                    <button class="btn-agregar-pizza" type="button">Agregar</button>
                 </div>
             </article>
 
-            <article class="producto" data-id="especial" data-nombre="Galaxy Especial" data-precio="189" data-img="pizzaespecial.png">
-                <div class="producto-imagen">
+            <article class="producto" data-id="especial" data-nombre="Galaxy Especial" data-precio="189" data-img="pizzaespecial.png"
+                data-incluye="Salsa de tomate, Queso mozzarella, Pepperoni, Champiñones, Tocino, Aceitunas">
+                <div class="producto-imagen" title="Clic para personalizar">
                     <img src="pizza.png" alt="Pizza Especial">
                 </div>
                 <div class="producto-info">
                     <h3>Galaxy Especial</h3>
                     <p>Nuestra combinación especial de ingredientes.</p>
                     <span class="precio">$189</span>
+                    <button class="btn-agregar-pizza" type="button">Agregar</button>
+                </div>
+            </article>
+
+            <!-- Pizza para armar desde cero -->
+            <article class="producto producto-personalizada" data-id="arma-tu-pizza" data-nombre="Arma tu pizza" data-precio="99" data-img="pizza.png"
+                data-incluye="Salsa de tomate, Queso mozzarella">
+                <div class="producto-imagen" title="Clic para personalizar">
+                    <img src="pizza.png" alt="Arma tu pizza">
+                </div>
+                <div class="producto-info">
+                    <h3>Arma tu pizza</h3>
+                    <p>Elige tamaño, masa e ingredientes a tu gusto.</p>
+                    <span class="precio">Desde $99</span>
                     <button class="btn-personalizar" type="button">Personalizar</button>
                 </div>
             </article>
@@ -191,15 +212,15 @@
     </section>
 
     <!-- Tamaños -->
-    <section class="tamaños" id="tamanos">
+ <section class="tamaños" id="tamanos">
         <div class="titulo">
             <h2>Elige tu tamaño</h2>
-            <p>Selecciona el tamaño de tu pizza (se aplica al personalizar)</p>
+            <p>Selecciona el tamaño</p>
         </div>
 
         <div class="tamaños-grid">
             <label class="tamaño">
-                <input type="radio" name="tamano" value="99" data-nombre="Personal" checked>
+                <input type="radio" name="tamano" value="99" data-nombre="Personal" data-extra="-50" checked>
                 <div class="circulo chico">
                     <img src="pizzachica.png" alt="Personal">
                 </div>
@@ -209,7 +230,7 @@
             </label>
 
             <label class="tamaño">
-                <input type="radio" name="tamano" value="149" data-nombre="Mediana">
+                <input type="radio" name="tamano" value="149" data-nombre="Mediana" data-extra="0">
                 <div class="circulo mediano">
                     <img src="pizzamediana.png" alt="Mediana">
                 </div>
@@ -219,7 +240,7 @@
             </label>
 
             <label class="tamaño">
-                <input type="radio" name="tamano" value="199" data-nombre="Grande">
+                <input type="radio" name="tamano" value="199" data-nombre="Grande" data-extra="50">
                 <div class="circulo grande">
                     <img src="pizzagrande.png" alt="Grande">
                 </div>
@@ -229,7 +250,7 @@
             </label>
 
             <label class="tamaño">
-                <input type="radio" name="tamano" value="249" data-nombre="Familiar">
+                <input type="radio" name="tamano" value="249" data-nombre="Familiar" data-extra="100">
                 <div class="circulo familiar">
                     <img src="pizzafamiliar.png" alt="Familiar">
                 </div>
@@ -237,85 +258,6 @@
                 <p>Para 5-6 personas</p>
                 <strong>$249</strong>
             </label>
-        </div>
-    </section>
-
-    <!-- Ingredientes (personalización con precio) -->
-    <section class="ingredientes" id="ingredientes">
-        <div class="titulo">
-            <h2>Personaliza tu pizza</h2>
-            <p>Agrega los ingredientes que quieras · El precio se actualiza al instante</p>
-        </div>
-
-        <div class="ingredientes-grid">
-            <label>
-                <input type="checkbox" class="ingrediente" data-precio="20" data-nombre="Pepperoni">
-                Pepperoni
-                <span>+$20</span>
-            </label>
-            <label>
-                <input type="checkbox" class="ingrediente" data-precio="20" data-nombre="Jamón">
-                Jamón
-                <span>+$20</span>
-            </label>
-            <label>
-                <input type="checkbox" class="ingrediente" data-precio="25" data-nombre="Tocino">
-                Tocino
-                <span>+$25</span>
-            </label>
-            <label>
-                <input type="checkbox" class="ingrediente" data-precio="15" data-nombre="Champiñones">
-                Champiñones
-                <span>+$15</span>
-            </label>
-            <label>
-                <input type="checkbox" class="ingrediente" data-precio="15" data-nombre="Piña">
-                Piña
-                <span>+$15</span>
-            </label>
-            <label>
-                <input type="checkbox" class="ingrediente" data-precio="20" data-nombre="Salchicha">
-                Salchicha
-                <span>+$20</span>
-            </label>
-            <label>
-                <input type="checkbox" class="ingrediente" data-precio="25" data-nombre="Extra queso">
-                Extra queso
-                <span>+$25</span>
-            </label>
-            <label>
-                <input type="checkbox" class="ingrediente" data-precio="15" data-nombre="Aceitunas">
-                Aceitunas
-                <span>+$15</span>
-            </label>
-        </div>
-
-        <!-- Tipo de masa -->
-        <div class="tipo-masa-bloque">
-            <h3>Tipo de masa</h3>
-            <div class="tipo-grid">
-                <label>
-                    <input type="radio" name="masa" value="0" data-nombre="Tradicional" checked>
-                    Tradicional
-                </label>
-                <label>
-                    <input type="radio" name="masa" value="15" data-nombre="Delgada">
-                    Delgada <span class="extra-precio">+$15</span>
-                </label>
-                <label>
-                    <input type="radio" name="masa" value="35" data-nombre="Rellena de queso">
-                    Rellena de queso <span class="extra-precio">+$35</span>
-                </label>
-            </div>
-        </div>
-
-        <!-- Resumen dinámico -->
-        <div class="resumen-personalizacion">
-            <p>Tamaño: <strong id="resumen-tamano">Personal</strong></p>
-            <p>Masa: <strong id="resumen-masa">Tradicional</strong></p>
-            <p>Extras: <strong id="resumen-extras">Ninguno</strong></p>
-            <p class="precio-total-estimado">Total estimado: $<span id="precio-estimado">99</span></p>
-            <button type="button" id="btn-agregar-personalizada" class="boton">Agregar pizza personalizada al carrito</button>
         </div>
     </section>
 
@@ -416,15 +358,15 @@
                     <h3>Lata de fanta 3555ml</h3>
                     <span>$18</span>
                     <button class="btn-agregar" type="button">Agregar</button>
-                
             </div>
+            <!-- aqui te quedaste nana -->
             <div clas
             
         </div>
     </section>
 
     <!-- Promociones -->
-    <section class="promociones" id="promociones">
+ <section class="promociones" id="promociones">
         <div class="titulo">
             <h2>Promociones</h2>
         </div>
@@ -445,12 +387,12 @@
     </section>
 
     <!-- Reseñas -->
-    <section class="resenas" id="resenas">
+   <section class="resenas" id="resenas">
         <div class="titulo">
             <h2>Lo que dicen de nosotros</h2>
             <p>Clientes que ya probaron el sabor de otro planeta</p>
         </div>
-        <div class="resenas-grid">
+        <div class="resenas-grid" id="lista-resenas">
             <blockquote class="resena">
                 <div class="estrellas">★★★★★</div>
                 <p>"La pizza Galaxy Especial estuvo bien buena, lo volvería a comprar."</p>
@@ -472,103 +414,48 @@
                 <cite>— Don chuy.</cite>
             </blockquote>
         </div>
-    </section>
-
-    <!-- Pedido (formulario) -->
-    <section class="pedido" id="pedido">
-        <div class="titulo">
-            <h2>Realiza tu pedido</h2>
-            <p>Déjanos los datos para preparar tu pedido. También puedes ordenar por WhatsApp.</p>
+         <div class="agregar-opinion">
+         <h3>Deja tu opinión</h3>
+         <form id="form-opinion">
+            <label for="nombre-opinion">Nombre</label>
+            <input type="text" id="nombre-opinion" name="nombre" placeholder="Cómo te llamas" required>
+            <label for="estrellas-opinion">Calificación</label>
+            <select id="estrellas-opinion" name="estrellas" required>
+                <option value="5">★★★★★</option>
+                <option value="4">★★★★</option>
+                <option value="3">★★★</option>
+                <option value="2">★★</option>
+                <option value="1">★</option>
+            </select>
+            <label for="texto-opinion">Tu opinión</label>
+            <textarea id="texto-opinion" name="opinion" placeholder="Cuéntanos qué te pareció." required></textarea>
+            <button type="submit" class="boton">Publicar opinión</button>
+         </form>
         </div>
+   </section>
 
-        <form class="formulario-pedido" id="form-pedido">
-            <div>
-                <label for="nombre">Nombre *</label>
-                <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
-            </div>
-            <div>
-                <label for="telefono">Teléfono *</label>
-                <input type="tel" id="telefono" name="telefono" placeholder="Tu teléfono" required>
-            </div>
-            <div>
-                <label for="ubicacion">Ubicación / Dirección *</label>
-                <input type="text" id="ubicacion" name="ubicacion" placeholder="Dirección de entrega" required>
-            </div>
-
-            <div>
-                <label for="hora">Hora aproximada</label>
-                <select id="hora" name="hora">
-                    <option value="">Selecciona</option>
-                    <option>Lo antes posible</option>
-                    <option>30-45 min</option>
-                    <option>45-60 min</option>
-                    <option>1 hora o más</option>
-                </select>
-            </div>
-            <div>
-                <label for="pago">Método de pago *</label>
-                <select id="pago" name="pago" required>
-                    <option value="">Selecciona una opción</option>
-                    <option>Efectivo</option>
-                    <option>Tarjeta</option>
-                    <option>Transferencia</option>
-                </select>
-            </div>
-            <div>
-                <label for="cambio">¿Cuánto vas a pagar? (si es efectivo)</label>
-                <input type="number" id="cambio" name="cambio" placeholder="$0.00" min="0" step="1">
-            </div>
-            <div class="campo-completo">
-                <label for="opinion">Notas u opinión (opcional)</label>
-                <textarea id="opinion" name="opinion" placeholder="Instrucciones especiales, alergias, etc."></textarea>
-            </div>
-
-            <div class="resumen-formulario campo-completo">
-                <p>Productos en carrito: <strong id="form-items">0</strong></p>
-                <p>Total a pagar: $<strong id="form-total">0.00</strong></p>
-            </div>
-
-            <button type="submit" class="boton-pedido">CONFIRMAR PEDIDO</button>
-        </form>
-    </section>
-
-    <!-- Carrito -->
-    <section class="carrito" id="carrito">
-        <div class="titulo">
-            <h2>Tu carrito</h2>
-        </div>
-        <div class="carrito-contenido">
-            <ul id="lista-carrito" class="lista-carrito"></ul>
-            <p id="carrito-vacio" class="carrito-vacio">Tu carrito está vacío.</p>
-            <strong>Total: $<span id="total-carrito">0.00</span></strong>
-            <div class="carrito-acciones">
-                <button type="button" id="btn-vaciar" class="btn-secundario">Vaciar carrito</button>
-                <a href="#pedido" class="boton">Continuar con el pedido</a>
-            </div>
-        </div>
-    </section>
-
+   
     <!-- Entrega / seguimiento -->
-    <section class="entrega">
+ <section class="entrega" id="entrega">
         <div class="titulo">
             <h2>Tu pedido está en camino</h2>
-            <p>Después de confirmar verás el estado aquí</p>
+            <p id="estado-texto">Ver estado</p>
         </div>
         <div class="entrega-info">
             <div>
-                <h3> Preparando tu pizza</h3>
-                <p>Tu pizza se está preparando al horno.</p>
+                <h3>Estado</h3>
+                <p id="estado-pedido">Sin pedido</p>
             </div>
             <div>
-                <h3> Repartidor</h3>
-                <p>Nombre del repartidor: <strong>Pendiente</strong></p>
+                <h3>Repartidor</h3>
+                <p>Nombre: <strong id="estado-repartidor">Pendiente</strong></p>
             </div>
             <div>
                 <h3>📍 Ubicación</h3>
-                <p>Tu pedido llegará a la dirección indicada.</p>
+                <p id="estado-direccion">Tu pedido llegará a la dirección indicada.</p>
             </div>
             <div>
-                <h3> Atención por WhatsApp</h3>
+                <h3>Atención por WhatsApp</h3>
                 <a href="https://wa.me/524491234567?text=Hola%2C%20quiero%20saber%20el%20estado%20de%20mi%20pedido" class="whatsapp" target="_blank" rel="noopener">
                     Contactar por WhatsApp
                 </a>
@@ -603,6 +490,7 @@
             </article>
         </div>
     </section>
+
 
     <!-- Bolsa de trabajo -->
     <section class="trabajo" id="trabajo">
@@ -662,44 +550,47 @@
     </a>
 
     <!-- inicio de sesión / registro -->
-    <div id="modal-auth" class="modal" hidden>
-        <div class="modal-backdrop" data-cerrar-auth></div>
-        <div class="modal-caja modal-auth-caja">
-            <button type="button" class="modal-cerrar" data-cerrar-auth aria-label="Cerrar">×</button>
-            <div class="auth-tabs">
-                <button type="button" class="auth-tab activo" data-tab="login">Iniciar sesión</button>
-                <button type="button" class="auth-tab" data-tab="registro">Crear cuenta</button>
-            </div>
-
+      <div id="modal-login" class="modal" hidden>
+         <div class="modal-backdrop" data-cerrar-login></div>
+         <div class="modal-caja">
+            <button type="button" class="modal-cerrar" data-cerrar-login aria-label="Cerrar">×</button>
+            <h2 style="color:#6b21a8; text-align:center; margin-bottom:16px;">Iniciar sesión</h2>
             <form id="form-login" class="form-auth">
                 <label>
-                    Correo o teléfono
-                    <input type="text" name="usuario" required placeholder="tu@correo.com" autocomplete="username">
+                     Correo o teléfono
+                    <input type="text" name="usuario" required placeholder="tu@correo.com">
                 </label>
                 <label>
                     Contraseña
-                    <input type="password" name="password" required placeholder="••••••••" autocomplete="current-password">
+                    <input type="password" name="password" required placeholder="••••••••">
                 </label>
                 <button type="submit" class="boton">Entrar</button>
-                <p class="auth-nota">Demo: cualquier correo y contraseña de 4+ caracteres</p>
+                <p class="auth-nota">Demo: cualquier correo y contraseña</p>
             </form>
-
-            <form id="form-registro" class="form-auth" hidden>
+         </div>
+      </div>
+      <!-- de registro-->
+    <div id="modal-registro" class="modal" hidden>
+        <div class="modal-backdrop" data-cerrar-registro></div>
+        <div class="modal-caja">
+             <button type="button" class="modal-cerrar" data-cerrar-registro aria-label="Cerrar">×</button>
+            <h2 style="color:#6b21a8; text-align:center; margin-bottom:16px;">Crear cuenta</h2>
+            <form id="form-registro" class="form-auth">
                 <label>
-                    Nombre
-                    <input type="text" name="nombre" required placeholder="Tu nombre" autocomplete="name">
+                    nombre
+                    <input type="text" name="nombre" required placeholder="Tu nombre">
                 </label>
                 <label>
-                    Correo
-                    <input type="email" name="email" required placeholder="tu@correo.com" autocomplete="email">
+                    correo
+                    <input type="email" name="email" required placeholder="tu@correo.com">
                 </label>
                 <label>
-                    Teléfono
-                    <input type="tel" name="telefono" placeholder="449 123 4567" autocomplete="tel">
+                    Telefóno 
+                    <input type="tel" name="telefono" placeholder="449 123 4567">
                 </label>
                 <label>
-                    Contraseña
-                    <input type="password" name="password" required placeholder="Mínimo 4 caracteres" minlength="4" autocomplete="new-password">
+                    contraseña
+                    <input type="password" name="password" required placeholder="Mínimo 4 caracteres" minlength="4">
                 </label>
                 <button type="submit" class="boton">Registrarme</button>
             </form>
@@ -707,7 +598,7 @@
     </div>
 
     <!-- Modal configurador de pizza -->
-    <div id="modal-pizza" class="modal" hidden>
+     <div id="modal-pizza" class="modal" hidden>
         <div class="modal-backdrop" data-cerrar></div>
         <div class="modal-caja">
             <button type="button" class="modal-cerrar" data-cerrar aria-label="Cerrar">×</button>

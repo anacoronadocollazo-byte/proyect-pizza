@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Pedido - Galaxy Pizza</title>
+    <link rel="stylesheet" href="meowlstyle.css">
+    <style>
+        body {
+            background-image: none;
+            background-color: #faf5ff;
+            padding: 20px;
+        }
+        .caja {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border: 2px solid #e9d5ff;
+            border-radius: 16px;
+            padding: 24px;
+        }
+        .caja h1 {
+            color: #6b21a8;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+        .caja p {
+            text-align: center;
+            color: #8b7a9e;
+            margin-bottom: 20px;
+        }
+        .volver {
+            display: inline-block;
+            margin-bottom: 16px;
+            color: #9333ea;
+            font-weight: bold;
+        }
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: bold;
+            color: #5b4a6a;
+            margin-bottom: 4px;
+            margin-top: 12px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1.5px solid #e9d5ff;
+            border-radius: 10px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        textarea {
+            min-height: 80px;
+        }
+        .resumen {
+            margin-top: 16px;
+            padding: 12px;
+            background: #f3e8ff;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+        .boton-enviar {
+            width: 100%;
+            margin-top: 16px;
+            padding: 14px;
+            background: #9333ea;
+            color: white;
+            border: none;
+            border-radius: 999px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .boton-enviar:hover {
+            background: #7e22ce;
+        }
+        .whatsapp-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            background: #25d366;
+            color: white;
+            padding: 10px;
+            border-radius: 999px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <a href="meowl.html" class="volver">← Volver a Galaxy Pizza</a>
+
+    <div class="caja">
+        <h1>Realiza tu pedido</h1>
+        <p>Llena tus datos para preparar tu pizza</p>
+
+        <form id="form-pedido">
+            <label>Nombre *</label>
+            <input type="text" id="nombre" required placeholder="Tu nombre">
+
+            <label>Teléfono *</label>
+            <input type="tel" id="telefono" required placeholder="Tu teléfono">
+
+            <label>Dirección *</label>
+            <input type="text" id="ubicacion" required placeholder="Dirección de entrega">
+
+            <label>Hora aproximada</label>
+            <select id="hora">
+                <option value="">Selecciona</option>
+                <option>Lo antes posible</option>
+                <option>30-45 min</option>
+                <option>45-60 min</option>
+                <option>1 hora o más</option>
+            </select>
+
+            <label>Método de pago *</label>
+            <select id="pago" required>
+                <option value="">Selecciona</option>
+                <option>Efectivo</option>
+                <option>Tarjeta</option>
+                <option>Transferencia</option>
+            </select>
+
+            <label>¿Con cuánto pagas? (si es efectivo)</label>
+            <input type="number" id="cambio" placeholder="0" min="0">
+
+            <div class="resumen">
+                <p>Productos en carrito: <strong id="items">0</strong></p>
+                <p>Total: $<strong id="total">0.00</strong></p>
+            </div>
+
+            <button type="submit" class="boton-enviar">CONFIRMAR PEDIDO</button>
+        </form>
+
+        <a class="whatsapp-link"
+           href="https://wa.me/524491234567?text=Hola%20quiero%20ordenar%20una%20Galaxy%20Pizza"
+           target="_blank">
+            Ordenar por WhatsApp
+        </a>
+    </div>
+
+    <script>
+        // leer el carrito guardado
+        var carrito = [];
+        if (localStorage.getItem("carrito")) {
+            carrito = JSON.parse(localStorage.getItem("carrito"));
+        }
+
+        var total = 0;
+        for (var i = 0; i < carrito.length; i++) {
+            total = total + carrito[i].precio;
+        }
+
+        document.getElementById("items").textContent = carrito.length;
+        document.getElementById("total").textContent = total.toFixed(2);
+
+        // al enviar el formulario
+        document.getElementById("form-pedido").onsubmit = function (e) {
+            e.preventDefault();
+            if (carrito.length == 0) {
+                alert("Agrega productos al carrito primero");
+                return;
+            }
+
+            // guardar estado del pedido
+            localStorage.setItem("pedidoActivo", "si");
+            localStorage.setItem("estadoPedido", "Preparando");
+            localStorage.setItem("pedidoDireccion", document.getElementById("ubicacion").value);
+            localStorage.setItem("pedidoHora", Date.now());
+
+            // vaciar carrito
+            localStorage.setItem("carrito", "[]");
+
+            alert("¡Pedido confirmado! Ve el estado en la pagina principal 🍕");
+        };
+    </script>
+
+</body>
+</html>
