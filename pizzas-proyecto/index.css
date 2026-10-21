@@ -20,11 +20,7 @@ html { scroll-behavior: smooth; }
 
 
 body {
-<<<<<<< HEAD
-    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTr7v3_f_Lqrh4xOW6ow8GCGyxKm5Hda7NqqQpUjMFSSMyb2rrEI2DfprE&s=10");
-=======
     background-image: url("fondogalaxy.png");
->>>>>>> 4d98377a662c723ca3cd14658e640f31dd69b9c3
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;      
