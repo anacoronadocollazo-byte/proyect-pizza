@@ -439,7 +439,7 @@ button { cursor: pointer; border: none; font-family: inherit; }
     max-height: 85px; object-fit: contain;
     transition: transform 0.3s;
 }
-.postre:hover .postres-imagen img{
+.postre:hover .postre-imagen img{
     transform: scale(1.08);
 }
 .postre h3{ font-size: 14px; margin-bottom: 6px; color: #6b21a8; }
