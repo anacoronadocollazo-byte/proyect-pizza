@@ -216,21 +216,21 @@ button { cursor: pointer; border: none; font-family: inherit; }
 
 .titulo { text-align: center; margin-bottom: 36px; }
 .titulo h2 {
-    font-size: clamp(1.5rem, 2.8vw, 2.1rem);
-    margin-bottom: 8px; color: #ded4e6;
+    font-size: clamp(1.9rem, 2.9vw, 2.7rem);
+    margin-bottom: 9px; color: #ffb732;
 }
 .titulo h2::before, .titulo h2::after {
     content: "♡";
-    color: var(--accent);
-    font-size: 0.75em;
+    color: #fff;
+    font-size: 0.99em;
     margin: 0 8px;
 }
-.titulo p { color: var(--muted); font-size: 14px; }
+.titulo p { color: #ffffff; font-size: 17px; }
 
 .categorias { width: 92%; max-width: 1100px; margin: 0 auto; padding: 50px 0; }
 .categorias > h2 {
     text-align: center; font-size: clamp(1.4rem, 2.5vw, 1.9rem);
-    margin-bottom: 24px; color: #e7e2ec;
+    margin-bottom: 24px; color: #ffb732;
 }
 .categorias-grid {
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
