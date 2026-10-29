@@ -33,7 +33,7 @@ body {
     display: none;
 }
 
-h1, h2, h3, .banner-texto h1, .titulo h2, .categorias > h2 {
+h1, h2, h3, h4, .banner-texto h1, .titulo h2, .categorias > h2 {
     font-family: "Comfortaa", "Nunito", sans-serif;
     font-weight: 700;
 }
@@ -65,7 +65,6 @@ button { cursor: pointer; border: none; font-family: inherit; }
     padding: 12px 4%;
     background: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(10px);
-    
 }
 
 .logo {
@@ -168,7 +167,6 @@ button { cursor: pointer; border: none; font-family: inherit; }
     max-width: 360px; line-height: 1.7;
 }
 .banner-botones { display: flex; flex-wrap: wrap; gap: 10px; }
-
 .boton {
     display: inline-block;
     background: var(--accent-deep);
@@ -273,7 +271,7 @@ button { cursor: pointer; border: none; font-family: inherit; }
 }
 .producto:hover .producto-imagen img { transform: scale(1.03); }
 .producto-info { padding: 16px 16px 18px; }
-.producto-info h3 {
+.producto-info h3{
     font-size: 1.1rem; margin-bottom: 6px; color: #6b21a8;
 }
 .producto-info p {
@@ -281,22 +279,24 @@ button { cursor: pointer; border: none; font-family: inherit; }
     font-size: 13px;
     overflow: hidden;
 }
-.precio {
+.precio, h4 {
     display: block; font-size: 18px; font-weight: 800;
     margin: 10px 0 12px; color: var(--accent-deep);
 }
 
-.btn-personalizar, .producto button, .extra button, .bebida button, .postre button {
+.btn-personalizar, .producto button, .extra button, .bebida button, .postre button, h4{
     width: 100%; padding: 11px;
     background: var(--accent-deep);
     color: #fff; font-weight: 700; font-size: 13px;
     border-radius: 999px;
     transition: background 0.2s;
 }
-.btn-personalizar:hover, .producto button:hover, .extra button:hover, .bebida button:hover, .postre button:hover {
+.btn-personalizar:hover, .producto button:hover, .extra button:hover, .bebida button:hover, .postre button:hover, h4 {
     background: #7e22ce;
 }
-
+h4{
+    text-align: center;
+}
 .tamaños { width: 92%; max-width: 1000px; margin: 0 auto; padding: 40px 0; }
 .tamaños-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
 .tamaño {
