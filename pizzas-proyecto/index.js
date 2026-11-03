@@ -270,36 +270,3 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
 });
-const modalRegistro = document.getElementById("modal-registro");
-const abrirRegistro = document.getElementById("abrir-registro");
-const cerrarRegistro = document.getElementById("cerrar-registro");
-const crearCuenta = document.getElementById("crear-cuenta");
-
-abrirRegistro.addEventListener("click", function () {
-    modalRegistro.style.display = "flex";
-});
-
-cerrarRegistro.addEventListener("click", function () {
-    modalRegistro.style.display = "none";
-});
-//=== FIN DE INICIO DE SESION === //
-crearCuenta.addEventListener("click", function () {
-    const nombre = document.getElementById("nombre-registro").value.trim();
-    const correo = document.getElementById("correo-registro").value.trim();
-    const password = document.getElementById("password-registro").value;
-    const confirmar = document.getElementById("confirmar-password").value;
-
-    if (!nombre || !correo || !password || !confirmar) {
-        alert("Completa todos los campos.");
-        return;
-    }
-
-    if (password !== confirmar) {
-        alert("Las contraseñas no coinciden.");
-        return;
-    }
-
-    alert("¡Registro completado en el simulador, " + nombre + "!");
-
-    modalRegistro.style.display = "none";
-});
