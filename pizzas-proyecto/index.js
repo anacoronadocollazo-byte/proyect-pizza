@@ -27,7 +27,6 @@ function toast(msg) {
 }
 
 function agregar(prod) {
-  // la "clave" junta producto + detalle para que una pizza grande y una mediana sean distintas //
   const clave = prod.id + "|" + (prod.detalle || "");
   const existe = carrito.find((p) => p.clave === clave);
   if (existe) existe.cantidad++;
@@ -49,13 +48,16 @@ function quitar(clave) {
   guardar();
 }
 
-// -- Ventana del carrito (se crea sola) -- //
+// -- Crear ventana del carrito -- //
 function crearModalCarrito() {
   if ($("#modal-carrito")) return;
+
   const m = document.createElement("div");
   m.id = "modal-carrito";
   m.className = "modal carrito-modal";
   m.hidden = true;
+  m.style.display = "none";
+
   m.innerHTML = `
     <div class="modal-backdrop" data-cerrar-carrito></div>
     <div class="modal-caja">
@@ -71,20 +73,29 @@ function crearModalCarrito() {
         </div>
       </div>
     </div>`;
+  
   document.body.appendChild(m);
 
-  $$("[data-cerrar-carrito]", m).forEach((b) =>
-    b.addEventListener("click", () => (m.hidden = true))
-  );
+  // Cerrar carrito
+  $$("[data-cerrar-carrito]", m).forEach((b) => {
+    b.addEventListener("click", () => {
+      m.hidden = true;
+      m.style.display = "none";
+    });
+  });
+
+  // Vaciar carrito
   $("#btn-vaciar", m).addEventListener("click", () => {
     if (carrito.length && confirm("¿Vaciar el carrito?")) {
       carrito = [];
       guardar();
     }
   });
+
+  // Hacer pedido
   $("#btn-pagar", m).addEventListener("click", hacerPedido);
 
-  // botones + / − / quitar //
+  // Botones + / - / quitar
   $("#lista-carrito", m).addEventListener("click", (e) => {
     const b = e.target.closest("button[data-accion]");
     if (!b) return;
@@ -98,7 +109,9 @@ function crearModalCarrito() {
 function pintarCarrito() {
   const lista = $("#lista-carrito");
   if (!lista) return;
+
   lista.innerHTML = "";
+
   carrito.forEach((p) => {
     const li = document.createElement("li");
     li.innerHTML = `
@@ -116,26 +129,39 @@ function pintarCarrito() {
       <button type="button" class="btn-quitar" data-accion="quitar" data-clave="${p.clave}" aria-label="Quitar">✕</button>`;
     lista.appendChild(li);
   });
+
   const total = carrito.reduce((t, p) => t + p.precio * p.cantidad, 0);
-  $("#carrito-total").textContent = "Total: " + dinero(total);
-  $("#carrito-vacio").hidden = carrito.length > 0;
+  const totalEl = $("#carrito-total");
+  if (totalEl) totalEl.textContent = "Total: " + dinero(total);
+
+  const vacio = $("#carrito-vacio");
+  if (vacio) vacio.hidden = carrito.length > 0;
 }
 
 function hacerPedido() {
   if (!carrito.length) return toast("Agrega algo primero");
+
   const total = carrito.reduce((t, p) => t + p.precio * p.cantidad, 0);
   localStorage.setItem("galaxy_ultimo_pedido", JSON.stringify({ items: carrito, total, fecha: Date.now() }));
+
   const est = $("#estado-pedido");
-  if (est) est.textContent = "Pedido recibido – preparando 🍕";
+  if (est) est.textContent = "Pedido recibido – preparando ";
+
   const rep = $("#estado-repartidor");
   if (rep) rep.textContent = "Asignando repartidor...";
+
   carrito = [];
   guardar();
-  $("#modal-carrito").hidden = true;
+
+  const modal = $("#modal-carrito");
+  if (modal) {
+    modal.hidden = true;
+    modal.style.display = "none";
+  }
+
   toast("¡Pedido realizado! Total " + dinero(total));
 }
 
-// -- Datos de un producto desde su HTML -- //
 function datosDe(el) {
   return {
     id: el.dataset.id,
@@ -145,7 +171,7 @@ function datosDe(el) {
   };
 }
 
-// -- Modal de personalizar pizza -- //
+// -- Modal personalizar pizza -- //
 const INGREDIENTES = [
   ["Pepperoni", 20], ["Jamón", 20], ["Piña", 15], ["Champiñones", 15],
   ["Chorizo", 20], ["Tocino", 25], ["Pimiento", 10], ["Cebolla", 10],
@@ -156,34 +182,59 @@ let pizzaActual = null;
 function abrirPizza(art) {
   const modal = $("#modal-pizza");
   if (!modal) return agregar(datosDe(art));
+
   pizzaActual = datosDe(art);
   const incluye = (art.dataset.incluye || "").split(",").map((s) => s.trim()).filter(Boolean);
 
-  $("#modal-img").src = pizzaActual.img;
-  $("#modal-nombre").textContent = pizzaActual.nombre;
+  const img = $("#modal-img");
+  if (img) img.src = pizzaActual.img || "";
+
+  const nombre = $("#modal-nombre");
+  if (nombre) nombre.textContent = pizzaActual.nombre;
+
   const desc = $(".producto-info p", art);
-  $("#modal-desc").textContent = desc ? desc.textContent : "";
-  $("#modal-incluye").innerHTML = incluye.map((i) => `<span class="chip">${i}</span>`).join("");
+  const modalDesc = $("#modal-desc");
+  if (modalDesc) modalDesc.textContent = desc ? desc.textContent : "";
 
-  $("#modal-extras").innerHTML = INGREDIENTES
-    .filter(([n]) => !incluye.some((i) => i.toLowerCase().includes(n.toLowerCase())))
-    .map(([n, p]) => `<label class="chip"><input type="checkbox" value="${p}" data-nombre="${n}"> ${n} +$${p}</label>`)
-    .join("");
+  const incluyeEl = $("#modal-incluye");
+  if (incluyeEl) {
+    incluyeEl.innerHTML = incluye.map((i) => `<span class="chip">${i}</span>`).join("");
+  }
 
-  const t = $('input[name="modal-tamano"][data-nombre="Mediana"]'); if (t) t.checked = true;
-  const m = $('input[name="modal-masa"][value="0"]'); if (m) m.checked = true;
+  const extrasEl = $("#modal-extras");
+  if (extrasEl) {
+    extrasEl.innerHTML = INGREDIENTES
+      .filter(([n]) => !incluye.some((i) => i.toLowerCase().includes(n.toLowerCase())))
+      .map(([n, p]) => `<label class="chip"><input type="checkbox" value="${p}" data-nombre="${n}"> ${n} +$${p}</label>`)
+      .join("");
+  }
+
+  const t = $('input[name="modal-tamano"][data-nombre="Mediana"]');
+  if (t) t.checked = true;
+
+  const m = $('input[name="modal-masa"][value="0"]');
+  if (m) m.checked = true;
+
   calcularPizza();
+
+  // Abrir modal
   modal.hidden = false;
+  modal.style.display = "flex";
 }
 
 function calcularPizza() {
   if (!pizzaActual) return 0;
+
   const tam = $('input[name="modal-tamano"]:checked');
   const masa = $('input[name="modal-masa"]:checked');
   const extras = $$("#modal-extras input:checked");
+
   let total = pizzaActual.precio + Number(tam?.value || 0) + Number(masa?.value || 0);
   extras.forEach((e) => (total += Number(e.value)));
-  $("#modal-precio").textContent = total;
+
+  const precioEl = $("#modal-precio");
+  if (precioEl) precioEl.textContent = total;
+
   return total;
 }
 
@@ -191,115 +242,151 @@ function agregarPizzaPersonalizada() {
   const tam = $('input[name="modal-tamano"]:checked')?.dataset.nombre || "Mediana";
   const masa = $('input[name="modal-masa"]:checked')?.dataset.nombre || "Tradicional";
   const extras = $$("#modal-extras input:checked").map((e) => e.dataset.nombre);
-  const detalle = [tam, "Masa " + masa, extras.length ? "+ " + extras.join(", ") : ""].filter(Boolean).join(" · ");
+
+  const detalle = [tam, "Masa " + masa, extras.length ? "+ " + extras.join(", ") : ""]
+    .filter(Boolean)
+    .join(" · ");
+
   agregar({ ...pizzaActual, precio: calcularPizza(), detalle });
-  $("#modal-pizza").hidden = true;
+
+  const modal = $("#modal-pizza");
+  if (modal) {
+    modal.hidden = true;
+    modal.style.display = "none";
+  }
 }
 
-// -- Conectar todo -- //
+// -- Cuando carga la página -- //
 document.addEventListener("DOMContentLoaded", () => {
   crearModalCarrito();
   actualizarContador();
   pintarCarrito();
 
-  // Abrir carrito
-  $("#btn-abrir-carrito")?.addEventListener("click", (e) => {
-    e.preventDefault();
-    pintarCarrito();
-    $("#modal-carrito").hidden = false;
-  });
+  // Botón abrir carrito
+  const btnCarrito = $("#btn-abrir-carrito");
+  if (btnCarrito) {
+    btnCarrito.addEventListener("click", (e) => {
+      e.preventDefault();
+      pintarCarrito();
+      const modal = $("#modal-carrito");
+      if (modal) {
+        modal.hidden = false;
+        modal.style.display = "flex";
+      }
+    });
+  }
 
-  // Pizzas: "Agregar" = mediana tradicional directo al carrito //
-  $$(".btn-agregar-pizza").forEach((b) =>
+  // Botón Agregar pizza (directo)
+  $$(".btn-agregar-pizza").forEach((b) => {
     b.addEventListener("click", () => {
       const art = b.closest(".producto");
-      agregar({ ...datosDe(art), detalle: "Mediana · Masa Tradicional" });
-    })
-  );
+      if (art) {
+        agregar({ ...datosDe(art), detalle: "Mediana · Masa Tradicional" });
+      }
+    });
+  });
 
-  // Pizzas: clic en imagen o "Personalizar" abre el modal //
-  $$(".producto .producto-imagen, .btn-personalizar").forEach((el) =>
-    el.addEventListener("click", () => abrirPizza(el.closest(".producto")))
-  );
+  // Clic en imagen o botón Personalizar → abre modal
+  $$(".producto .producto-imagen, .btn-personalizar").forEach((el) => {
+    el.addEventListener("click", () => {
+      const art = el.closest(".producto");
+      if (art) abrirPizza(art);
+    });
+  });
 
-  // Extras, bebidas y postres //
-  $$(".btn-agregar").forEach((b) =>
+  // Extras, bebidas y postres
+  $$(".btn-agregar").forEach((b) => {
     b.addEventListener("click", () => {
       const cont = b.closest("[data-precio]");
       if (cont) agregar(datosDe(cont));
-    })
-  );
+    });
+  });
 
-  // Modal pizza: recalcular precio y agregar //
-  $("#modal-pizza")?.addEventListener("change", calcularPizza);
-  $("#modal-agregar")?.addEventListener("click", agregarPizzaPersonalizada);
-  $$("#modal-pizza [data-cerrar]").forEach((b) =>
-    b.addEventListener("click", () => ($("#modal-pizza").hidden = true))
-  );
+  // Modal pizza - recalcular precio
+  const modalPizza = $("#modal-pizza");
+  if (modalPizza) {
+    modalPizza.addEventListener("change", calcularPizza);
+  }
 
-  // Promociones //
-  $$(".btn-promo").forEach((b) =>
+  // Botón agregar pizza personalizada
+  const btnAgregarPizza = $("#modal-agregar");
+  if (btnAgregarPizza) {
+    btnAgregarPizza.addEventListener("click", agregarPizzaPersonalizada);
+  }
+
+  // Cerrar modal pizza
+  $$("#modal-pizza [data-cerrar]").forEach((b) => {
+    b.addEventListener("click", () => {
+      const modal = $("#modal-pizza");
+      if (modal) {
+        modal.hidden = true;
+        modal.style.display = "none";
+      }
+    });
+  });
+
+  // Promociones
+  $$(".btn-promo").forEach((b) => {
     b.addEventListener("click", () => {
       if (b.dataset.promo === "2x1") {
-        agregar({ id: "promo-2x1", nombre: "Promo 2x1 Pepperoni", precio: 149, img: "pizzapeperoni.png", detalle: "2 pizzas medianas" });
+        agregar({
+          id: "promo-2x1",
+          nombre: "Promo 2x1 Pepperoni",
+          precio: 149,
+          img: "pizzapeperoni.png",
+          detalle: "2 pizzas medianas",
+        });
       } else {
         toast("Promoción de temporada próximamente ✨");
       }
-    })
-  );
-  // Cerrar ventanas con Esc //
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") $$(".modal").forEach((m) => (m.hidden = true));
+    });
   });
-});
 
-//==== FIN CARRITO GALAXY PIZZA === //
-//==== INICIO DE INICIO DE SESION === //
-document.addEventListener("DOMContentLoaded", function() {
-
-    const btnLogin = document.getElementById("btn-login");
-    const modal = document.getElementById("modal-login");
-    const cerrar = document.getElementById("cerrar");
-
-    btnLogin.addEventListener("click", function() {
-        modal.style.display = "block";
-    });
-
-    cerrar.addEventListener("click", function() {
-        modal.style.display = "none";
-    });
-
-});
-const modalRegistro = document.getElementById("modal-registro");
-const abrirRegistro = document.getElementById("abrir-registro");
-const cerrarRegistro = document.getElementById("cerrar-registro");
-const crearCuenta = document.getElementById("crear-cuenta");
-
-abrirRegistro.addEventListener("click", function () {
-    modalRegistro.style.display = "flex";
-});
-
-cerrarRegistro.addEventListener("click", function () {
-    modalRegistro.style.display = "none";
-});
-//=== FIN DE INICIO DE SESION === //
-crearCuenta.addEventListener("click", function () {
-    const nombre = document.getElementById("nombre-registro").value.trim();
-    const correo = document.getElementById("correo-registro").value.trim();
-    const password = document.getElementById("password-registro").value;
-    const confirmar = document.getElementById("confirmar-password").value;
-
-    if (!nombre || !correo || !password || !confirmar) {
-        alert("Completa todos los campos.");
-        return;
+  // Cerrar modales con tecla Escape
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      $$(".modal").forEach((m) => {
+        m.hidden = true;
+        m.style.display = "none";
+      });
     }
+  });
 
-    if (password !== confirmar) {
-        alert("Las contraseñas no coinciden.");
-        return;
-    }
+  // ===== LOGIN =====
+  const btnLogin = document.getElementById("btn-login");
+  const modalLogin = document.getElementById("modal-login");
+  const btnCerrarLogin = document.getElementById("cerrar");
 
-    alert("¡Registro completado en el simulador, " + nombre + "!");
+  if (btnLogin && modalLogin) {
+    btnLogin.addEventListener("click", () => {
+      modalLogin.style.display = "flex";
+    });
+  }
 
-    modalRegistro.style.display = "none";
+  if (btnCerrarLogin && modalLogin) {
+    btnCerrarLogin.addEventListener("click", () => {
+      modalLogin.style.display = "none";
+    });
+  }
+
+  // ===== REGISTRO =====
+  const btnAbrirRegistro = document.getElementById("abrir-registro");
+  const modalRegistro = document.getElementById("modal-registro");
+
+  if (btnAbrirRegistro && modalRegistro) {
+    btnAbrirRegistro.addEventListener("click", () => {
+      modalRegistro.hidden = false;
+      modalRegistro.style.display = "flex";
+    });
+  }
+
+  // Cerrar registro
+  document.querySelectorAll("[data-cerrar-registro]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      if (modalRegistro) {
+        modalRegistro.hidden = true;
+        modalRegistro.style.display = "none";
+      }
+    });
+  });
 });
