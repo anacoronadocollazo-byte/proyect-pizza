@@ -32,7 +32,7 @@ function agregar(prod) {
   if (existe) existe.cantidad++;
   else carrito.push({ ...prod, clave, cantidad: 1 });
   guardar();
-  toast(prod.nombre + " agregado al carrito ");
+  toast(prod.nombre + " agregado al carrito 🍕");
 }
 
 function cambiarCantidad(clave, delta) {
@@ -48,6 +48,7 @@ function quitar(clave) {
   guardar();
 }
 
+// -- Crear ventana del carrito -- //
 function crearModalCarrito() {
   if ($("#modal-carrito")) return;
 
@@ -75,6 +76,7 @@ function crearModalCarrito() {
   
   document.body.appendChild(m);
 
+  // Cerrar carrito
   $$("[data-cerrar-carrito]", m).forEach((b) => {
     b.addEventListener("click", () => {
       m.hidden = true;
@@ -82,6 +84,7 @@ function crearModalCarrito() {
     });
   });
 
+  // Vaciar carrito
   $("#btn-vaciar", m).addEventListener("click", () => {
     if (carrito.length && confirm("¿Vaciar el carrito?")) {
       carrito = [];
@@ -89,8 +92,10 @@ function crearModalCarrito() {
     }
   });
 
+  // Hacer pedido
   $("#btn-pagar", m).addEventListener("click", hacerPedido);
 
+  // Botones + / - / quitar
   $("#lista-carrito", m).addEventListener("click", (e) => {
     const b = e.target.closest("button[data-accion]");
     if (!b) return;
@@ -140,7 +145,7 @@ function hacerPedido() {
   localStorage.setItem("galaxy_ultimo_pedido", JSON.stringify({ items: carrito, total, fecha: Date.now() }));
 
   const est = $("#estado-pedido");
-  if (est) est.textContent = "Pedido recibido – preparando 🍕";
+  if (est) est.textContent = "Pedido recibido – preparando ";
 
   const rep = $("#estado-repartidor");
   if (rep) rep.textContent = "Asignando repartidor...";
@@ -212,6 +217,7 @@ function abrirPizza(art) {
 
   calcularPizza();
 
+  // Abrir modal
   modal.hidden = false;
   modal.style.display = "flex";
 }
@@ -280,7 +286,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Clic en imagen o botón Personalizar
+  // Clic en imagen o botón Personalizar → abre modal
   $$(".producto .producto-imagen, .btn-personalizar").forEach((el) => {
     el.addEventListener("click", () => {
       const art = el.closest(".producto");
@@ -336,7 +342,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Cerrar modales con Escape
+  // Cerrar modales con tecla Escape
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
       $$(".modal").forEach((m) => {
@@ -346,7 +352,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // ===== LOGIN =====
+  // ===== INICIO DE SESIÓN =====
   const btnLogin = document.getElementById("btn-login");
   const modalLogin = document.getElementById("modal-login");
   const btnCerrarLogin = document.getElementById("cerrar");
@@ -362,24 +368,4 @@ document.addEventListener("DOMContentLoaded", () => {
       modalLogin.style.display = "none";
     });
   }
-
-  // ===== REGISTRO =====
-  const btnAbrirRegistro = document.getElementById("abrir-registro");
-  const modalRegistro = document.getElementById("modal-registro");
-
-  if (btnAbrirRegistro && modalRegistro) {
-    btnAbrirRegistro.addEventListener("click", () => {
-      modalRegistro.hidden = false;
-      modalRegistro.style.display = "flex";
-    });
-  }
-
-  document.querySelectorAll("[data-cerrar-registro]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      if (modalRegistro) {
-        modalRegistro.hidden = true;
-        modalRegistro.style.display = "none";
-      }
-    });
-  });
 });
