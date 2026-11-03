@@ -252,3 +252,54 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.key === "Escape") $$(".modal").forEach((m) => (m.hidden = true));
   });
 });
+
+//==== FIN CARRITO GALAXY PIZZA === //
+//==== INICIO DE INICIO DE SESION === //
+document.addEventListener("DOMContentLoaded", function() {
+
+    const btnLogin = document.getElementById("btn-login");
+    const modal = document.getElementById("modal-login");
+    const cerrar = document.getElementById("cerrar");
+
+    btnLogin.addEventListener("click", function() {
+        modal.style.display = "block";
+    });
+
+    cerrar.addEventListener("click", function() {
+        modal.style.display = "none";
+    });
+
+});
+const modalRegistro = document.getElementById("modal-registro");
+const abrirRegistro = document.getElementById("abrir-registro");
+const cerrarRegistro = document.getElementById("cerrar-registro");
+const crearCuenta = document.getElementById("crear-cuenta");
+
+abrirRegistro.addEventListener("click", function () {
+    modalRegistro.style.display = "flex";
+});
+
+cerrarRegistro.addEventListener("click", function () {
+    modalRegistro.style.display = "none";
+});
+//=== FIN DE INICIO DE SESION === //
+crearCuenta.addEventListener("click", function () {
+    const nombre = document.getElementById("nombre-registro").value.trim();
+    const correo = document.getElementById("correo-registro").value.trim();
+    const password = document.getElementById("password-registro").value;
+    const confirmar = document.getElementById("confirmar-password").value;
+
+    if (!nombre || !correo || !password || !confirmar) {
+        alert("Completa todos los campos.");
+        return;
+    }
+
+    if (password !== confirmar) {
+        alert("Las contraseñas no coinciden.");
+        return;
+    }
+
+    alert("¡Registro completado en el simulador, " + nombre + "!");
+
+    modalRegistro.style.display = "none";
+});

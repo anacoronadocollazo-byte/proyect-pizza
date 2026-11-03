@@ -32,7 +32,7 @@
 
         <div class="acciones">
             <button type="button" id="btn-login" class="btn-cuenta">iniciar sesion</button>
-            <button type="button" id="btn-registro" class="btn-cuenta btn-cuenta-outline">registrarse</button>
+            <button type="button" id="abrir-registro" class="btn-cuenta btn-cuenta-outline">registrarse</button>
         </div>
         </div>
             <!-- Mi pedido abre en otra ventana/pestaña -->
@@ -43,6 +43,25 @@
             </a>
         </div>
     </header>
+    <div id="modal-login" class="modal">
+    <div class="contenido-login">
+        <h2>Iniciar sesión</h2>
+        <input type="email" id="correo" placeholder="Correo electrónico">
+        <input type="password" id="password" placeholder="Contraseña">
+        <button id="entrar">Entrar</button>
+        <button id="cerrar">Cerrar</button>
+    </div>
+    
+    <div class="botones-cuenta">
+    <button id="abrir-login" class="btn-cuenta">
+        Iniciar sesión
+    </button>
+
+    <button id="abrir-registro" class="btn-cuenta-outline">
+        Registrarse
+    </button>
+</div>
+</div>
 
     <!-- Menú principal -->
     <nav class="menu">
