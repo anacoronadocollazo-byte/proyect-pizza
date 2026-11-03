@@ -892,5 +892,78 @@ footer {
         transform: scale(1);
     }
 }
+/* ===== POSTRES ===== */
+.postres {
+    width: 92%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 0;
+}
+
+.postres-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.postre {
+    background: var(--card);
+    border: 1.5px solid var(--line);
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.postre:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 32px rgba(147, 51, 234, 0.12);
+}
+
+.postre-imagen {
+    height: 95px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.postre-imagen img {
+    max-height: 85px;
+    object-fit: contain;
+    transition: transform 0.3s;
+}
+
+.postre:hover .postre-imagen img {
+    transform: scale(1.08);
+}
+
+.postre h3 {
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: #6b21a8;
+}
+
+.postre span {
+    display: block;
+    color: var(--accent-deep);
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.postre button {
+    width: 100%;
+    padding: 11px;
+    background: var(--accent-deep);
+    color: #fff;
+    font-weight: 700;
+    font-size: 13px;
+    border-radius: 999px;
+    transition: background 0.2s;
+}
+
+.postre button:hover {
+    background: #7e22ce;
+}
 
 /* de registro, es un desastre */
