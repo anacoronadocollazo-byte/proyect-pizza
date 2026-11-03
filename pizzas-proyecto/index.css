@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Pacifico&display=swap');
+
 :root {
     --bg: #faf5ff;
     --bg-soft: #f3e8ff;
@@ -13,8 +14,11 @@
     --cream: #fdfaff;
     --ok: #4ade80;
 }
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+
+
 body {
     background-image: url("fondogalaxy.png");
     background-repeat: no-repeat;
@@ -22,7 +26,9 @@ body {
     background-size: cover;      
     background-position: center bottom; 
     background-color: #1a1440;      
+    
 }
+
 .cielo {
     display: none;
 }
@@ -887,115 +893,4 @@ footer {
     }
 }
 
-/* Acomodar los botones de cuenta */
-.botones-cuenta {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin: 15px 0;
-}
-
-/* Estilo compartido */
-.botones-cuenta button {
-    padding: 12px 22px;
-    border-radius: 10px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-/* Botón Iniciar sesión */
-.botones-cuenta .btn-cuenta {
-    background: #7e22ce;
-    color: white;
-    border: 1px solid #7e22ce;
-}
-
-/* Botón Registrarse */
-.botones-cuenta .btn-cuenta-outline {
-    background: white;
-    color: #7e22ce;
-    border: 1px solid #7e22ce;
-}
-
-/* Efectos al pasar el cursor */
-.botones-cuenta button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(126, 34, 206, 0.2);
-}
-/* postres */
-.postres {
-    width: 92%;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 40px 0;
-}
-
-.postres-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-}
-
-.postre {
-    background: var(--card);
-    border: 1.5px solid var(--line);
-    border-radius: 16px;
-    padding: 20px;
-    text-align: center;
-    transition: transform 0.25s, box-shadow 0.25s;
-}
-
-.postre:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 32px rgba(147, 51, 234, 0.12);
-}
-
-.postre-imagen {
-    height: 95px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 10px;
-}
-
-.postre-imagen img {
-    max-height: 85px;
-    object-fit: contain;
-    transition: transform 0.3s;
-}
-
-.postre:hover .postre-imagen img {
-    transform: scale(1.08);
-}
-
-.postre h3 {
-    font-size: 14px;
-    margin-bottom: 6px;
-    color: #6b21a8;
-}
-
-.postre span {
-    display: block;
-    color: var(--accent-deep);
-    font-weight: 800;
-    margin-bottom: 10px;
-}
-
-.postre button {
-    width: 100%;
-    padding: 11px;
-    background: var(--accent-deep);
-    color: #fff;
-    font-weight: 700;
-    font-size: 13px;
-    border-radius: 999px;
-    transition: background 0.2s;
-}
-
-.postre button:hover {
-    background: #7e22ce;
-}
+/* de registro, es un desastre */
