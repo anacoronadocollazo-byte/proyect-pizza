@@ -369,3 +369,22 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+const modalMapa = document.getElementById('modal-mapa');
+const mapaFrame = document.getElementById('mapa-frame');
+document.querySelectorAll('.btn-ubicacion').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const q = encodeURIComponent(btn.dataset.direccion);
+        document.getElementById('mapa-titulo').textContent =
+            btn.closest('article').querySelector('h3').textContent;
+        mapaFrame.src = `https://www.google.com/maps?q=${q}&output=embed`;
+        document.getElementById('mapa-link').href =
+            `https://www.google.com/maps/search/?api=1&query=${q}`;
+        modalMapa.hidden = false;
+    });
+});
+modalMapa.querySelectorAll('[data-cerrar-mapa]').forEach(el => {
+    el.addEventListener('click', () => {
+        modalMapa.hidden = true;
+        mapaFrame.src = '';
+    });
+});

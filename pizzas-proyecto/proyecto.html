@@ -25,22 +25,14 @@
     </div>
 
     <!-- Header -->
-    <header class="encabezado">
-        <div class="logo">
-            <img src="logo.png" alt="Galaxy Pizza">
-        </div>
-
-        <div class="acciones">
-            <button type="button" id="btn-login" class="btn-cuenta">iniciar sesion</button>
-            <button type="button" id="abrir-registro" class="btn-cuenta btn-cuenta-outline">registrarse</button>
-        </div>
-        </div>
-          <!-- Carrito abre modal, no navega a sección -->
-             <a href="#" id="btn-abrir-carrito" class="btn-carrito-header">
-                Carrito <span id="contador-carrito" class="badge">0</span>
-            </a>
+<header class="encabezado">
+    <div class="logo"><img src="logo.png" alt="Galaxy Pizza"></div>
+    <div class="acciones">
+        <button type="button" id="btn-login" class="btn-cuenta">Iniciar sesión</button>
+        <button type="button" id="abrir-registro" class="btn-cuenta btn-cuenta-outline">Registrarse</button>
+        <a href="#" id="btn-abrir-carrito" class="btn-carrito-header">Carrito <span id="contador-carrito" class="badge">0</span></a>
     </div>
-    </header>
+</header>
     <div id="modal-login" class="modal">
     <div class="contenido-login">
         <h2>Iniciar sesión</h2>
@@ -134,7 +126,6 @@
                     <p>Salsa de tomate, queso mozzarella y pepperoni.</p>
                     <span class="precio">$149</span>
                     <button class="btn-agregar-pizza" type="button">Agregar</button>
-                    <button class="btn-personalizar" type="button">Personalizar</button>
                 </div>
             </article>
 
@@ -148,7 +139,6 @@
                     <p>Jamón, piña y queso mozzarella.</p>
                     <span class="precio">$159</span>
                     <button class="btn-agregar-pizza" type="button">Agregar</button>
-                    <button class="btn-personalizar" type="button">Personalizar</button>
                 </div>
             </article>
 
@@ -162,7 +152,6 @@
                     <p>Pepperoni, jamón, salchicha y tocino.</p>
                     <span class="precio">$179</span>
                     <button class="btn-agregar-pizza" type="button">Agregar</button>
-                    <button class="btn-personalizar" type="button">Personalizar</button>
                 </div>
             </article>
 
@@ -176,7 +165,6 @@
                     <p>Champiñones, pimiento, cebolla y aceitunas.</p>
                     <span class="precio">$169</span>
                     <button class="btn-agregar-pizza" type="button">Agregar</button>
-                    <button class="btn-personalizar" type="button">Personalizar</button>
                 </div>
             </article>
 
@@ -190,7 +178,6 @@
                     <p>Mezcla de quesos seleccionados.</p>
                     <span class="precio">$179</span>
                     <button class="btn-agregar-pizza" type="button">Agregar</button>
-                    <button class="btn-personalizar" type="button">Personalizar</button>
                 </div>
             </article>
 
@@ -204,7 +191,6 @@
                     <p>Nuestra combinación especial de ingredientes.</p>
                     <span class="precio">$189</span>
                     <button class="btn-agregar-pizza" type="button">Agregar</button>
-                    <button class="btn-personalizar" type="button">Personalizar</button>
                 </div>
             </article>
 
@@ -218,7 +204,6 @@
                     <h3>Arma tu pizza</h3>
                     <p>Elige tamaño, masa e ingredientes a tu gusto.</p>
                     <span class="precio">Desde $99</span>
-                    <button class="btn-personalizar" type="button">Personalizar</button>
                 </div>
             </article>
         </div>
@@ -543,7 +528,6 @@
         </div>
    </section>
 
-   
     <!-- Entrega / seguimiento -->
  <section class="entrega" id="entrega">
         <div class="titulo">
@@ -583,24 +567,28 @@
                 <h3>Galaxy Pizza Centro</h3>
                 <p>📍 Av. Principal #123</p>
                 <p>📞 449-123-4567</p>
-                <button type="button">Ver ubicación</button>
+                <a class="btn-ubicacion"
+                href="https://www.google.com/maps/place/Haciendas+de+Aguascalientes,+Aguascalientes,+Ags./@21.8898501,-102.2475957,1935a,75y,164.74h,90.36t/data=!3m7!1e1!3m5!1s7A7XiIFCcKNctRSJMKHgTw!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-0.3605052585865707%26panoid%3D7A7XiIFCcKNctRSJMKHgTw%26yaw%3D164.7395988354931!7i16384!8i8192!4m15!1m8!3m7!1s0x8429f1e48855da2b:0x31b87789088dfa76!2sHaciendas+de+Aguascalientes,+Aguascalientes,+Ags.!3b1!8m2!3d21.890027!4d-102.2476392!16s%2Fg%2F1wbf_qty!3m5!1s0x8429f1e48855da2b:0x31b87789088dfa76!8m2!3d21.890027!4d-102.2476392!16s%2Fg%2F1wbf_qty?entry=ttu&g_ep=EgoyMDI2MTEwOS4wIKXMDSoASAFQAw%3D%3D"
+                target="_blank" rel="noopener">Ver ubicación</a>
             </article>
             <article>
                 <h3>Galaxy Pizza Norte</h3>
                 <p>📍 Blvd. Norte #456</p>
                 <p>📞 449-234-5678</p>
-                <button type="button">Ver ubicación</button>
+                <a class="btn-ubicacion"
+                href="https://www.google.com/maps/place/Tierra+Buena,+20263+Aguascalientes,+Ags./@21.8607448,-102.2510332,1949a,75y,85.32h,62.89t/data=!3m7!1e1!3m5!1sM0c5xYrINcMY2dTl7VF7yg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D27.11002711687898%26panoid%3DM0c5xYrINcMY2dTl7VF7yg%26yaw%3D85.32189398034974!7i16384!8i8192!4m15!1m8!3m7!1s0x8429f2088f960553:0x4d60857e16365659!2sTierra+Buena,+20263+Aguascalientes,+Ags.!3b1!8m2!3d21.8608359!4d-102.2508578!16s%2Fg%2F1tkkv5qb!3m5!1s0x8429f2088f960553:0x4d60857e16365659!8m2!3d21.8608359!4d-102.2508578!16s%2Fg%2F1tkkv5qb?entry=ttu&g_ep=EgoyMDI2MTEwOS4wIKXMDSoASAFQAw%3D%3D"
+                target="_blank" rel="noopener">Ver ubicación</a>
             </article>
             <article>
-                <h3>Galaxy Pizza Sur</h3>
-                <p>📍 Av. del Sol #789</p>
-                <p>📞 449-345-6789</p>
-                <button type="button">Ver ubicación</button>
+                <h3>Galaxy Pizza Centro</h3>
+                <p>📍 Av. Principal #123</p>
+                <p>📞 449-123-4567</p>
+                <a class="btn-ubicacion"
+                href="https://www.google.com/maps/place/Frijol,+20263+Aguascalientes,+Ags./@21.8616243,-102.2512172,1944a,75y,15.41h,70.05t/data=!3m7!1e1!3m5!1sYej--nvUezwT0QyGQ5ZV4A!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D19.95113809286532%26panoid%3DYej--nvUezwT0QyGQ5ZV4A%26yaw%3D15.410002976999287!7i16384!8i8192!4m15!1m8!3m7!1s0x8429f20885a1f6e3:0xb51b21956852959f!2sFrijol,+20263+Aguascalientes,+Ags.!3b1!8m2!3d21.8612501!4d-102.2512037!16s%2Fg%2F1tm88rqt!3m5!1s0x8429f20885a1f6e3:0xb51b21956852959f!8m2!3d21.8612501!4d-102.2512037!16s%2Fg%2F1tm88rqt?entry=ttu&g_ep=EgoyMDI2MTEwOS4wIKXMDSoASAFQAw%3D%3D"
+                target="_blank" rel="noopener">Ver ubicación</a>
             </article>
         </div>
     </section>
-
-
     <!-- Bolsa de trabajo -->
     <section class="trabajo" id="trabajo">
         <div class="titulo">
@@ -778,6 +766,15 @@
             </div>
         </div>
     </div>
+    <div id="modal-mapa" class="modal" hidden>
+    <div class="modal-backdrop" data-cerrar-mapa></div>
+    <div class="modal-caja">
+        <button type="button" class="modal-cerrar" data-cerrar-mapa aria-label="Cerrar">×</button>
+        <h2 id="mapa-titulo" style="color:#6b21a8; margin-bottom:12px;">Ubicación</h2>
+        <iframe id="mapa-frame" title="Mapa" width="100%" height="320" style="border:0; border-radius:12px;" loading="lazy"></iframe>
+        <a id="mapa-link" class="boton" target="_blank" rel="noopener" style="margin-top:12px;">Abrir en Google Maps</a>
+    </div>
+</div>
     <!-- Toast de notificación -->
     <div id="toast" class="toast" hidden></div>
 
