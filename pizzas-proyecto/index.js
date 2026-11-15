@@ -336,7 +336,26 @@ document.addEventListener("DOMContentLoaded", () => {
           img: "pizzapeperoni.png",
           detalle: "2 pizzas medianas",
         });
-      } else {
+      }
+      if (b.dataset.promo === "combo") {
+        agregar({
+          id: "promo-combo",
+          nombre: "Promo combo de carne",
+          precio: 160,
+          img: "combo.jpg",
+          detalle: "1 pizza de carne mediana con un refresco de cocacola",
+        });
+      }
+      if (b.dataset.promo === "navidad") {
+        agregar({
+          id: "promo-nav",
+          nombre: "Promo de mini pizzas",
+          precio: 145,
+          img: "promociontemp.jpg",
+          detalle: "6 mini pizzas sabrosas tematicas de navidad para cada miembro de la familia",
+        });
+      }
+      else {
         toast("Promoción de temporada próximamente ✨");
       }
     });
