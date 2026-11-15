@@ -352,7 +352,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // ===== INICIO DE SESIÓN =====
+// ===== INICIO DE SESIÓN =====
   const btnLogin = document.getElementById("btn-login");
   const modalLogin = document.getElementById("modal-login");
   const btnCerrarLogin = document.getElementById("cerrar");
@@ -368,7 +368,33 @@ document.addEventListener("DOMContentLoaded", () => {
       modalLogin.style.display = "none";
     });
   }
+  if (btnCerrarLogin && modalLogin) {
+    btnCerrarLogin.addEventListener("click", () => {
+      modalLogin.style.display = "none";
+    });
+    }
 });
+
+// === REGISTRO ===
+
+const btnRegistro = document.getElementById("abrir-registro");
+const modalRegistro = document.getElementById("modal-abrir-registro");
+const btnCerrarRegistro = document.getElementById("cerrar-registro");
+
+if (btnRegistro && modalRegistro) {
+    btnRegistro.addEventListener("click", () => {
+        modalRegistro.style.display = "flex";
+    });
+}
+
+if (btnCerrarRegistro && modalRegistro) {
+    btnCerrarRegistro.addEventListener("click", () => {
+        modalRegistro.style.display = "none";
+    });
+}
+    
+
+////=== MAPA DE UBICACIONES =====
 const modalMapa = document.getElementById('modal-mapa');
 const mapaFrame = document.getElementById('mapa-frame');
 document.querySelectorAll('.btn-ubicacion').forEach(btn => {

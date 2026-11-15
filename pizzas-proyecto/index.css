@@ -815,7 +815,8 @@ footer {
 .modal ¨{
     display: none;
 }
-/* coso de js para la ventana de inicio de sesion */
+
+/* incio diseño js */
 .modal {
     display: none;
     position: fixed;
@@ -830,7 +831,7 @@ footer {
     box-sizing: border-box;
 }
 
-/* ventana */
+/* ventanita blanca de inicio de sesión */
 .contenido-login {
     background: white;
     width: 100%;
@@ -842,8 +843,9 @@ footer {
     animation: aparecer 0.25s ease;
 }
 
-/* letrasletras */
+/* iniciar sesion arriba */
 .contenido-login h2 {
+    font-size: 1.3rem;
     text-align: center;
     color: #333;
     margin-top: 0;
@@ -868,7 +870,7 @@ footer {
     box-shadow: 0 0 5px rgba(126, 34, 206, 0.2);
 }
 
-/* entrar y cerrar */
+/* diseño botones */
 .contenido-login button {
     width: 100%;
     padding: 12px;
@@ -888,6 +890,7 @@ footer {
     transform: translateY(-1px);
 }
 
+/* animacion al dar click */
 @keyframes aparecer {
     from {
         opacity: 0;
@@ -898,6 +901,94 @@ footer {
         transform: scale(1);
     }
 }
+
+/*registro*/
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+/* ventanita blanca de registro */
+.contenido-registro {
+    background: white;
+    width: 100%;
+    max-width: 380px;
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+    animation: aparecer 0.25s ease;
+}
+
+/* registro*/
+.contenido-registro h2 {
+    font-size: 1.3rem;
+    text-align: center;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+/* cuadritos de datos */
+.contenido-registro input {
+    display: block;
+    width: 100%;
+    padding: 13px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 9px;
+    box-sizing: border-box;
+    font-size: 14px;
+    outline: none;
+}
+
+.contenido-registro input:focus {
+    border-color: #7e22ce;
+    box-shadow: 0 0 5px rgba(126, 34, 206, 0.2);
+}
+
+/* diseño botones */
+.contenido-registro button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 9px;
+    background: #7e22ce;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.contenido-registro button:hover {
+    background: #6b21a8;
+    transform: translateY(-1px);
+}
+
+/* animacion al dar click */
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
 /* ===== POSTRES ===== */
 .postres {
     width: 92%;
