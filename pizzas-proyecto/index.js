@@ -69,7 +69,7 @@ function crearModalCarrito() {
         <strong id="carrito-total">Total: $0</strong>
         <div class="carrito-acciones">
           <button type="button" class="btn-secundario" id="btn-vaciar">Vaciar</button>
-          <button type="button" class="boton" id="btn-pagar">Hacer pedido</button>
+          <a href="pedido.html" class="boton" id="btn-pagar">Hacer pedido</a>
         </div>
       </div>
     </div>`;
@@ -138,28 +138,13 @@ function pintarCarrito() {
   if (vacio) vacio.hidden = carrito.length > 0;
 }
 
-function hacerPedido() {
-  if (!carrito.length) return toast("Agrega algo primero");
-
-  const total = carrito.reduce((t, p) => t + p.precio * p.cantidad, 0);
-  localStorage.setItem("galaxy_ultimo_pedido", JSON.stringify({ items: carrito, total, fecha: Date.now() }));
-
-  const est = $("#estado-pedido");
-  if (est) est.textContent = "Pedido recibido – preparando ";
-
-  const rep = $("#estado-repartidor");
-  if (rep) rep.textContent = "Asignando repartidor...";
-
-  carrito = [];
-  guardar();
-
-  const modal = $("#modal-carrito");
-  if (modal) {
-    modal.hidden = true;
-    modal.style.display = "none";
+function hacerPedido(e) {
+  // "Hacer pedido" ahora es un enlace a pedido.html: si el carrito está vacío, no lo dejamos pasar
+  if (!carrito.length) {
+    if (e) e.preventDefault();
+    return toast("Agrega algo primero");
   }
-
-  toast("¡Pedido realizado! Total " + dinero(total));
+  location.href = "pedido.html";
 }
 
 function datosDe(el) {
@@ -433,3 +418,244 @@ modalMapa.querySelectorAll('[data-cerrar-mapa]').forEach(el => {
         mapaFrame.src = '';
     });
 });
+
+//=== Reswñas ===
+(() => {
+  const $ = (s, c = document) => c.querySelector(s);
+  const aviso = (msg) => (typeof toast === "function" ? toast(msg) : alert(msg));
+  const leer = (clave, defecto) => {
+    try { return JSON.parse(localStorage.getItem(clave)) ?? defecto; }
+    catch (e) { return defecto; }
+  };
+
+  /* ================= SEGUIMIENTO ================= */
+  const CLAVE_PEDIDO = "galaxy_pedido_activo";
+
+  //  1 "minuto" dura 10 segundos para ver todas las etapas.
+  // Para tiempo real cambiar a: 60 * 1000
+  const MIN = 10 * 1000;
+
+  const ETAPAS = [
+    { min: 0,  titulo: "Recibido",   encabezado: "Recibimos tu pedido",         texto: "Pedido recibido ✔" },
+    { min: 1,  titulo: "Preparando", encabezado: "Estamos preparando tu pizza", texto: "Horneando tu pizza 🍕" },
+    { min: 6,  titulo: "En camino",  encabezado: "Tu pedido está en camino 🛵", texto: "El repartidor va hacia ti" },
+    { min: 15, titulo: "Entregado",  encabezado: "¡Tu pedido llegó!",           texto: "Entregado. ¡Buen provecho! 🎉" },
+  ];
+  const REPARTIDORES = ["Carlos", "Luis", "Daniela", "Miguel"];
+
+  function etapaDe(p) {
+    const t = (Date.now() - p.creado) / MIN;
+    let i = 0;
+    ETAPAS.forEach((e, n) => { if (t >= e.min) i = n; });
+    return i;
+  }
+
+  function pintarSeguimiento() {
+    const sec = $("#entrega");
+    if (!sec) return;
+
+    const p = leer(CLAVE_PEDIDO, null);
+    const pill = $("#btn-seguir-pedido");
+
+    // Sin pedido: la sección no aparece (una pizzería real no muestra "en camino" si no pediste)
+    if (!p) {
+      sec.hidden = true;
+      if (pill) pill.hidden = true;
+      return;
+    }
+
+    const i = etapaDe(p);
+    const etapa = ETAPAS[i];
+
+    // El repartidor se asigna al salir de cocina y se queda guardado
+    if (i >= 2 && !p.repartidor) {
+      p.repartidor = REPARTIDORES[Math.floor(Math.random() * REPARTIDORES.length)];
+      localStorage.setItem(CLAVE_PEDIDO, JSON.stringify(p));
+    }
+
+    sec.hidden = false;
+
+    const titulo = $("#entrega-titulo");
+    if (titulo) titulo.textContent = etapa.encabezado;
+
+    const restante = Math.max(0, Math.ceil(ETAPAS[3].min - (Date.now() - p.creado) / MIN));
+    const eta = $("#estado-texto");
+    if (eta) {
+      eta.textContent = i === 3
+        ? "Pedido " + p.id + " · entregado"
+        : "Pedido " + p.id + " · llega en aprox. " + restante + " min";
+    }
+
+    const pasos = $("#seguimiento-pasos");
+    if (pasos) {
+      pasos.innerHTML = ETAPAS.map((s, n) =>
+        `<li class="${n < i ? "hecho" : n === i ? "actual" : ""}">
+           <span class="punto">${n < i || i === 3 ? "✓" : n + 1}</span>
+           <span class="paso-nombre">${s.titulo}</span>
+         </li>`).join("");
+    }
+
+    const est = $("#estado-pedido");
+    if (est) est.textContent = etapa.texto;
+
+    const rep = $("#estado-repartidor");
+    if (rep) rep.textContent = p.repartidor || "Se asigna al salir de cocina";
+
+    const dir = $("#estado-direccion");
+    if (dir) dir.textContent = p.direccion || "Compártenos tu ubicación por WhatsApp para llegar a ti";
+
+    const res = $("#estado-resumen");
+    if (res) res.textContent = "Total $" + Number(p.total).toFixed(0) + " · Pago: " + p.pago;
+
+    // Ruta: ---- ----  (la moto avanza mientras está "En camino")
+    const moto = $("#ruta-moto");
+    if (moto) {
+      const t = (Date.now() - p.creado) / MIN;
+      const ini = ETAPAS[2].min, fin = ETAPAS[3].min;
+      const avance = Math.min(1, Math.max(0, (t - ini) / (fin - ini)));
+      moto.style.left = (avance * 100) + "%";
+    }
+
+    const cerrar = $("#btn-cerrar-pedido");
+    if (cerrar) cerrar.hidden = i !== 3;
+
+    if (pill) pill.hidden = i === 3;
+  }
+
+  function iniciarSeguimiento() {
+    // Botón flotante "Seguir mi pedido"
+    if (!$("#btn-seguir-pedido")) {
+      const a = document.createElement("a");
+      a.id = "btn-seguir-pedido";
+      a.className = "btn-seguir-pedido";
+      a.href = "#entrega";
+      a.textContent = "🛵 Seguir mi pedido";
+      a.hidden = true;
+      document.body.appendChild(a);
+    }
+
+    const cerrar = $("#btn-cerrar-pedido");
+    if (cerrar) {
+      cerrar.addEventListener("click", () => {
+        localStorage.removeItem(CLAVE_PEDIDO);
+        pintarSeguimiento();
+        aviso("¡Gracias por tu pedido! Cuéntanos qué tal estuvo ⭐");
+        const r = $("#reseñas");
+        if (r) r.scrollIntoView({ behavior: "smooth" });
+      });
+    }
+
+    pintarSeguimiento();
+    setInterval(pintarSeguimiento, 3000);
+    window.addEventListener("storage", pintarSeguimiento); // otra pestaña hizo el pedido
+  }
+
+  /* ================= RESEÑAS ================= */
+  // Las reseñas que escribi a mano en el HTML NO se tocan.
+  // Aquí solo se agregan arriba las que deje el usuario ps con el formulario.
+  const CLAVE_RESENAS = "galaxy_resenas";
+  const MAX_NUEVAS_VISIBLES = 8;
+
+  function tarjeta(r) {
+    const b = document.createElement("blockquote");
+    b.className = "reseña guardada";
+
+    const est = document.createElement("div");
+    est.className = "estrellas";
+    est.textContent = "★".repeat(r.estrellas) + "☆".repeat(5 - r.estrellas);
+    est.setAttribute("aria-label", r.estrellas + " de 5 estrellas");
+
+    const p = document.createElement("p");
+    p.textContent = "\"" + r.texto + "\"";
+
+    const c = document.createElement("cite");
+    c.textContent = "— " + r.nombre;
+
+    b.append(est, p, c);
+
+   
+
+    // Botón para quitar la opinión (solo en las guardadas con el formulario)
+    const x = document.createElement("button");
+    x.type = "button";
+    x.className = "resena-quitar";
+    x.textContent = "✕ Quitar";
+    x.addEventListener("click", () => {
+      if (!confirm("¿Quitar esta opinión?")) return;
+      const resto = leer(CLAVE_RESENAS, []).filter((o) => o.fecha !== r.fecha);
+      localStorage.setItem(CLAVE_RESENAS, JSON.stringify(resto));
+      pintarResenas();
+    });
+    b.appendChild(x);
+    return b;
+  }
+
+  function pintarResenas() {
+    const grid = $("#lista-reseñas");
+    if (!grid) return;
+
+    // quitar solo las guardadas que ya estaban pintadas; las tuyas se quedan
+    grid.querySelectorAll(".reseña.guardada").forEach((el) => el.remove());
+
+    const nuevas = leer(CLAVE_RESENAS, []).slice(0, MAX_NUEVAS_VISIBLES);
+    grid.prepend(...nuevas.map(tarjeta));
+
+    // Promedio con TODAS las tarjetas (las de HTML y las nuevas)
+    const tarjetas = [...grid.querySelectorAll(".reseña")];
+    if (!tarjetas.length) return;
+    const suma = tarjetas.reduce((t, el) => {
+      const est = $(".estrellas", el);
+      return t + (est ? (est.textContent.match(/★/g) || []).length : 0);
+    }, 0);
+
+    let resumen = $("#resenas-promedio");
+    if (!resumen) {
+      resumen = document.createElement("p");
+      resumen.id = "resenas-promedio";
+      resumen.className = "resenas-promedio";
+      const titulo = $("#reseñas .titulo");
+      if (titulo) titulo.appendChild(resumen);
+    }
+    resumen.textContent = "★ " + (suma / tarjetas.length).toFixed(1) + " de 5 · " + tarjetas.length + " opiniones";
+  }
+
+  function iniciarResenas() {
+    const form = $("#form-opinion");
+    pintarResenas();
+    if (!form) return;
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const nombre = form.nombre.value.trim().slice(0, 30);
+      const texto = form.opinion.value.trim().slice(0, 300);
+      const estrellas = Number(form.estrellas.value);
+
+      if (nombre.length < 2) return aviso("Escribe tu nombre");
+      if (texto.length < 2) return aviso("Cuéntanos un poco más");
+
+      const guardadas = leer(CLAVE_RESENAS, []);
+      guardadas.unshift({
+        nombre, estrellas, texto,
+        fecha: Date.now(),
+        verificada: localStorage.getItem("galaxy_ha_comprado") === "1",
+      });
+
+      try {
+        localStorage.setItem(CLAVE_RESENAS, JSON.stringify(guardadas.slice(0, 50)));
+      } catch (err) {
+        return aviso("No se pudo guardar tu opinión");
+      }
+
+      form.reset();
+      form.estrellas.value = "5";
+      pintarResenas();
+      aviso("¡Gracias por tu opinión! ⭐");
+    });
+  }
+
+  /* ================= ARRANQUE ================= */
+  const arrancar = () => { iniciarSeguimiento(); iniciarResenas(); };
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", arrancar);
+  else arrancar();
+})();

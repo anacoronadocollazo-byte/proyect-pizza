@@ -1,182 +1,602 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Pedido - Galaxy Pizza</title>
-    <link rel="stylesheet" href="meowlstyle.css">
-    <style>
-        body {
-            background-image: none;
-            background-color: #faf5ff;
-            padding: 20px;
-        }
-        .caja {
-            max-width: 600px;
-            margin: 0 auto;
-            background: white;
-            border: 2px solid #e9d5ff;
-            border-radius: 16px;
-            padding: 24px;
-        }
-        .caja h1 {
-            color: #6b21a8;
-            text-align: center;
-            margin-bottom: 8px;
-        }
-        .caja p {
-            text-align: center;
-            color: #8b7a9e;
-            margin-bottom: 20px;
-        }
-        .volver {
-            display: inline-block;
-            margin-bottom: 16px;
-            color: #9333ea;
-            font-weight: bold;
-        }
-        label {
-            display: block;
-            font-size: 13px;
-            font-weight: bold;
-            color: #5b4a6a;
-            margin-bottom: 4px;
-            margin-top: 12px;
-        }
-        input, select, textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1.5px solid #e9d5ff;
-            border-radius: 10px;
-            font-size: 14px;
-            box-sizing: border-box;
-        }
-        textarea {
-            min-height: 80px;
-        }
-        .resumen {
-            margin-top: 16px;
-            padding: 12px;
-            background: #f3e8ff;
-            border-radius: 10px;
-            font-size: 14px;
-        }
-        .boton-enviar {
-            width: 100%;
-            margin-top: 16px;
-            padding: 14px;
-            background: #9333ea;
-            color: white;
-            border: none;
-            border-radius: 999px;
-            font-weight: bold;
-            font-size: 14px;
-            cursor: pointer;
-        }
-        .boton-enviar:hover {
-            background: #7e22ce;
-        }
-        .whatsapp-link {
-            display: block;
-            text-align: center;
-            margin-top: 20px;
-            background: #25d366;
-            color: white;
-            padding: 10px;
-            border-radius: 999px;
-            font-weight: bold;
-            text-decoration: none;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi Pedido</title>
+<style>
+body {
+    margin: 0;
+    padding: 16px;
+    background: #f3e8ff;
+    font-family: system-ui, -apple-system, sans-serif;
+    color: #3b2a4a;
+}
+
+.caja {
+    max-width: 480px;
+    margin: 0 auto;
+    background: #f8f0ff;
+    border-radius: 16px;
+    padding: 20px 16px 24px;
+}
+
+.titulo {
+    font-size: 14px;
+    font-weight: 700;
+    margin: 22px 0 10px;
+    color: #3b2a4a;
+}
+#formulario > .titulo:first-child { margin-top: 0; }
+
+.titulo span {
+    color: #9333ea;
+}
+
+/* Campos */
+input, select {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 14px;
+    border: 1px solid #e9d5ff;
+    border-radius: 8px;
+    background: #faf5ff;
+    color: #3b2a4a;
+    box-sizing: border-box;
+    outline: none;
+    font-family: inherit;
+}
+
+input::placeholder {
+    color: #a78bca;
+}
+
+input:focus, select:focus {
+    border-color: #9333ea;
+}
+
+.invalido { border-color: #dc2626 !important; }
+
+/* Ojito para mostrar/ocultar lo que escribes */
+.campo-ojo { position: relative; flex: 1; min-width: 0; }
+.campo-ojo input, #t-numero { padding-right: 42px !important; }
+.ojo {
+    position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+    background: none; border: none; padding: 6px; line-height: 0;
+    color: #a78bca; cursor: pointer;
+}
+.ojo:hover, .ojo.activo { color: #9333ea; }
+.con-icono .ojo svg { position: static; left: auto; top: auto; transform: none; color: inherit; }
+.ojo .tachar { display: none; }
+.ojo.activo .tachar { display: inline; }
+
+/* Formulario de tarjeta */
+.tarjeta-form { margin-top: 12px; display: flex; flex-direction: column; gap: 10px; }
+[hidden] { display: none !important; }
+
+/* Nombre en dos columnas */
+.fila {
+    display: flex;
+    gap: 10px;
+}
+
+.fila input {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Iconos dentro de los campos */
+.con-icono {
+    position: relative;
+}
+
+.con-icono svg {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #a78bca;
+}
+
+.con-icono input {
+    padding-left: 38px;
+}
+
+/* Dirección */
+.apilado > * {
+    margin-bottom: 10px;
+}
+
+.grid4 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+@media (min-width: 480px) {
+    .grid4 {
+        grid-template-columns: 1fr 1fr 1fr 1.2fr;
+    }
+}
+
+/* Productos */
+.item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #faf5ff;
+    border: 1px solid #e9d5ff;
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    font-size: 13px;
+}
+
+.item img {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    object-fit: cover;
+    background: #fff;
+}
+
+.item .info {
+    flex: 1;
+}
+.item .info small { display: block; color: #8b7a9e; font-size: 11px; margin-top: 2px; }
+
+.item .precio {
+    font-weight: 700;
+}
+
+.total {
+    display: flex;
+    justify-content: space-between;
+    background: #faf5ff;
+    border: 1px solid #e9d5ff;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 14px;
+    margin-top: 6px;
+}
+
+.volver-menu { display: inline-block; margin-top: 8px; font-size: 12px; font-weight: 700; color: #9333ea; }
+
+/* Pago */
+.pago-opciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.pago-opciones label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #faf5ff;
+    border: 1px solid #e9d5ff;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.pago-opciones input {
+    width: auto;
+    margin: 0;
+}
+
+.pago-opciones input:checked + span {
+    color: #9333ea;
+}
+
+.monto {
+    font-size: 13px;
+    margin: 12px 0 6px;
+}
+
+/* Lo que cambia según el pago */
+.extra { margin-top: 12px; }
+.extra label { display: block; font-size: 12px; font-weight: 700; margin-bottom: 6px; }
+.nota { font-size: 12px; color: #8b7a9e; margin-top: 10px; line-height: 1.5; }
+
+
+/* Botón */
+.boton {
+    display: block;
+    width: 100%;
+    margin-top: 24px;
+    padding: 14px;
+    background: #9333ea;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.boton:disabled {
+    background: #c4b5fd;
+    cursor: not-allowed;
+}
+
+.error {
+    color: #dc2626;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: right;
+    min-height: 18px;
+    margin-top: 10px;
+}
+
+.listo {
+    text-align: center;
+    padding: 20px 6px;
+}
+
+.listo h2 {
+    color: #7e22ce;
+    margin-bottom: 12px;
+}
+.btn-wa, .btn-ver {
+    display: block;
+    margin-top: 12px;
+    padding: 13px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    color: #fff;
+}
+.btn-wa { background: #25d366; }
+.btn-ver { background: #9333ea; }
+</style>
 </head>
 <body>
 
-    <a href="proyecto.html" class="volver">← Volver a Galaxy Pizza</a>
+<div class="caja">
 
-    <div class="caja">
-        <h1>Realiza tu pedido</h1>
-        <p>Llena tus datos para preparar tu pizza</p>
+    <div id="formulario">
 
-        <form id="form-pedido">
-            <label>Nombre *</label>
-            <input type="text" id="nombre" required placeholder="Tu nombre">
+        <!-- 1. pedido -->
+        <div class="titulo"><span>1.</span> Tu pedido</div>
+        <div id="lista"></div>
+        <div class="total">
+            <span>Total</span>
+            <strong id="total">$0</strong>
+        </div>
 
-            <label>Teléfono *</label>
-            <input type="tel" id="telefono" required placeholder="Tu teléfono">
+        <!-- 2. Nombre -->
+        <div class="titulo"><span>2.</span> Nombre completo</div>
+        <div class="fila">
+            <input type="text" id="nombre" placeholder="Primer nombre">
+            <input type="text" id="apellido" placeholder="Apellido">
+        </div>
 
-            <label>Dirección *</label>
-            <input type="text" id="ubicacion" required placeholder="Dirección de entrega">
+        <!-- 3. Email -->
+        <div class="titulo"><span>3.</span> Email (opcional)</div>
+        <div class="con-icono">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="12" height="10" rx="1"/><path d="M2 6l6 4 6-4"/></svg>
+            <input type="email" id="email" placeholder="">
+        </div>
 
-            <label>Hora aproximada</label>
-            <select id="hora">
-                <option value="">Selecciona</option>
-                <option>Lo antes posible</option>
-                <option>30-45 min</option>
-                <option>45-60 min</option>
-                <option>1 hora o más</option>
-            </select>
+        <!-- 4. Teléfono -->
+        <div class="titulo"><span>4.</span> Número de teléfono</div>
+        <div class="con-icono">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 11.5v2a1.5 1.5 0 01-1.6 1.5 14 14 0 01-6.1-2.2 13.8 13.8 0 01-4.2-4.2A14 14 0 012.1 2.6 1.5 1.5 0 013.6 1h2a1.5 1.5 0 011.5 1.3c.1.7.3 1.4.5 2a1.5 1.5 0 01-.3 1.5L6.2 7a11 11 0 004.2 4.2l1-1a1.5 1.5 0 011.5-.3c.6.2 1.3.4 2 .5a1.5 1.5 0 011.3 1.5z"/></svg>
+            <input type="tel" id="telefono" inputmode="numeric" placeholder="">
+        </div>
 
-            <label>Método de pago *</label>
-            <select id="pago" required>
-                <option value="">Selecciona</option>
-                <option>Efectivo</option>
-                <option>Tarjeta</option>
-                <option>Transferencia</option>
-            </select>
-
-            <label>¿Con cuánto pagas? (si es efectivo)</label>
-            <input type="number" id="cambio" placeholder="0" min="0">
-
-            <div class="resumen">
-                <p>Productos en carrito: <strong id="items">0</strong></p>
-                <p>Total: $<strong id="total">0.00</strong></p>
+        <!-- 5. Dirección -->
+        <div class="titulo"><span>5.</span> ¿Cuál es tu dirección?</div>
+        <div class="apilado">
+            <div class="con-icono">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 7c0 4-5 8-5 8S3 11 3 7a5 5 0 0110 0z"/><circle cx="8" cy="7" r="1.5"/></svg>
+                <input type="text" id="calle" placeholder="Calle y número">
             </div>
+            <input type="text" id="colonia" placeholder="Línea de dirección 2">
+            <div class="grid4">
+                <input type="text" id="ciudad" placeholder="Ciudad">
+                <input type="text" id="estado" placeholder="Estado">
+                <input type="text" id="cp" inputmode="numeric" placeholder="C.P.">
+                <select id="pais">
+                    <option>México</option>
+                </select>
+            </div>
+        </div>
 
-            <button type="submit" class="boton-enviar">CONFIRMAR PEDIDO</button>
-        </form>
+        <!-- 6. Pago -->
+        <div class="titulo"><span>6.</span> Pago *</div>
+        <div class="monto">Monto del pago: <strong id="monto">$0</strong></div>
+        <div class="pago-opciones">
+            <label>
+                <input type="radio" name="pago" value="Efectivo" checked>
+                <span>Efectivo</span>
+            </label>
+            <label>
+                <input type="radio" name="pago" value="Tarjeta">
+                <span>Tarjeta</span>
+            </label>
+            <label>
+                <input type="radio" name="pago" value="Transferencia">
+                <span>Transferencia</span>
+            </label>
+        </div>
 
-        <a class="whatsapp-link"
-           href="https://wa.me/524491234567?text=Hola%20quiero%20ordenar%20una%20Galaxy%20Pizza"
-           target="_blank">
-            Ordenar por WhatsApp
-        </a>
+        <!-- Lo que aparece según el pago elegido -->
+        <div id="bloque-efectivo" class="nota">
+            Pagas en efectivo cuando llegue el repartidor.
+        </div>
+
+        <div id="bloque-tarjeta" class="nota" hidden>
+            Pagas con terminal cuando llegue tu pedido.
+        </div>
+
+        <div id="bloque-transfer" class="tarjeta-form" hidden>
+            <div class="con-icono">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="1.5" y="3" width="13" height="10" rx="1.5"/><path d="M1.5 6.5h13"/></svg>
+                <input type="password" id="t-numero" inputmode="numeric" autocomplete="cc-number" placeholder="Número de tarjeta" maxlength="23">
+                <button type="button" class="ojo" data-ojo="t-numero" aria-label="Mostrar"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5z"/><circle cx="8" cy="8" r="2"/><path class="tachar" d="M2.5 13.5L13.5 2.5"/></svg></button>
+            </div>
+            <input type="text" id="t-nombre" autocomplete="cc-name" placeholder="Nombre como aparece en la tarjeta">
+            <div class="fila">
+                <input type="text" id="t-exp" inputmode="numeric" autocomplete="cc-exp" placeholder="MM/AA" maxlength="5">
+                <div class="campo-ojo">
+                    <input type="password" id="t-cvv" inputmode="numeric" autocomplete="cc-csc" placeholder="CVV" maxlength="4">
+                    <button type="button" class="ojo" data-ojo="t-cvv" aria-label="Mostrar"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5z"/><circle cx="8" cy="8" r="2"/><path class="tachar" d="M2.5 13.5L13.5 2.5"/></svg></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="error" id="error"></div>
+
+        <button class="boton" id="btn">Entregar</button>
     </div>
 
-    <script>
-        // leer el carrito guardado
-        var carrito = [];
-        if (localStorage.getItem("carrito")) {
-            carrito = JSON.parse(localStorage.getItem("carrito"));
+    <!-- Pantalla final -->
+    <div id="listo" class="listo" style="display:none;">
+        <h2>¡Pedido listo! </h2>
+        <p>Tu número de pedido es <strong id="num"></strong></p>
+        <p id="msg"></p>
+
+        <a id="btn-wa" class="btn-wa" href="#" target="_blank" rel="noopener">Enviar mi pedido por WhatsApp</a>
+        <a class="btn-ver" href="proyecto.html#entrega">Ver cómo va mi pedido</a>
+    </div>
+
+</div>
+
+<script>
+// ===== CAMBIA ESTOS DATOS POR LOS REALES =====
+var WHATSAPP = "449 538 2005";               // WhatsApp de la pizzería
+// =============================================
+
+function $(id) { return document.getElementById(id); }
+function dinero(n) { return "$" + Number(n).toFixed(0); }
+
+var carrito = [];
+try {
+    carrito = JSON.parse(localStorage.getItem("galaxy_carrito")) || [];
+} catch (e) {}
+
+var total = 0;
+carrito.forEach(function (p) { total += p.precio * p.cantidad; });
+
+// ---- 1. productos ----
+var lista = $("lista");
+if (carrito.length === 0) {
+    var vacio = document.createElement("div");
+    vacio.className = "item";
+    vacio.textContent = "Tu carrito está vacío";
+    lista.appendChild(vacio);
+    var volver = document.createElement("a");
+    volver.className = "volver-menu";
+    volver.href = "proyecto.html#pizzas";
+    volver.textContent = "← Volver al menú";
+    lista.appendChild(volver);
+    $("btn").disabled = true;
+} else {
+    carrito.forEach(function (p) {
+        var fila = document.createElement("div");
+        fila.className = "item";
+        if (p.img) {
+            var im = document.createElement("img");
+            im.src = p.img; im.alt = "";
+            im.onerror = function () { im.remove(); };
+            fila.appendChild(im);
         }
-
-        var total = 0;
-        for (var i = 0; i < carrito.length; i++) {
-            total = total + carrito[i].precio;
+        var info = document.createElement("div");
+        info.className = "info";
+        info.textContent = p.cantidad + " × " + p.nombre;
+        if (p.detalle) {
+            var d = document.createElement("small");
+            d.textContent = p.detalle;
+            info.appendChild(d);
         }
+        var pr = document.createElement("div");
+        pr.className = "precio";
+        pr.textContent = dinero(p.precio * p.cantidad);
+        fila.appendChild(info);
+        fila.appendChild(pr);
+        lista.appendChild(fila);
+    });
+}
+$("total").textContent = dinero(total);
+$("monto").textContent = dinero(total);
 
-        document.getElementById("items").textContent = carrito.length;
-        document.getElementById("total").textContent = total.toFixed(2);
+// ---- mostrar lo que corresponde al pago elegido ----
+function pagoElegido() { return document.querySelector('input[name="pago"]:checked').value; }
+function actualizarPago() {
+    var pago = pagoElegido();
+    $("bloque-efectivo").hidden = pago !== "Efectivo";
+    $("bloque-tarjeta").hidden = pago !== "Tarjeta";
+    $("bloque-transfer").hidden = pago !== "Transferencia";
+}
+document.querySelectorAll('input[name="pago"]').forEach(function (r) {
+    r.addEventListener("change", actualizarPago);
+});
+actualizarPago();
 
-        // al enviar el formulario
-        document.getElementById("form-pedido").onsubmit = function (e) {
-            e.preventDefault();
-            if (carrito.length == 0) {
-                alert("Agrega productos al carrito primero");
-                return;
-            }
+document.querySelectorAll("input, select").forEach(function (el) {
+    el.addEventListener("input", function () { el.classList.remove("invalido"); });
+});
 
-            // guardar estado del pedido
-            localStorage.setItem("pedidoActivo", "si");
-            localStorage.setItem("estadoPedido", "Preparando");
-            localStorage.setItem("pedidoDireccion", document.getElementById("ubicacion").value);
-            localStorage.setItem("pedidoHora", Date.now());
+// ---- tarjeta: formato  ----
+var MODO_DEMO = true;   // true = avisa que no se cobra de verdad. Ponlo en false SOLO cuando conectes un cobro real.
+if (!MODO_DEMO) $("demo-nota").hidden = true;
 
-            // vaciar carrito
-            localStorage.setItem("carrito", "[]");
+$("t-numero").addEventListener("input", function () {
+    var d = this.value.replace(/\D/g, "").slice(0, 19);
+    this.value = d.replace(/(.{4})/g, "$1 ").trim();
+});
+$("t-exp").addEventListener("input", function () {
+    var d = this.value.replace(/\D/g, "").slice(0, 4);
+    this.value = d.length > 2 ? d.slice(0, 2) + "/" + d.slice(2) : d;
+});
+$("t-cvv").addEventListener("input", function () {
+    this.value = this.value.replace(/\D/g, "").slice(0, 4);
+});
 
-            alert("¡Pedido confirmado! Ve el estado en la pagina principal 🍕");
-        };
-    </script>
+// ojito: mostrar u ocultar lo que se escribe 
+function ocultarCampos() {
+    document.querySelectorAll(".ojo").forEach(function (b) {
+        $(b.dataset.ojo).type = "password";
+        b.classList.remove("activo");
+        b.setAttribute("aria-label", "Mostrar");
+    });
+}
+document.querySelectorAll(".ojo").forEach(function (b) {
+    b.addEventListener("click", function () {
+        var campo = $(b.dataset.ojo);
+        var mostrar = campo.type === "password";
+        campo.type = mostrar ? "text" : "password";
+        b.classList.toggle("activo", mostrar);
+        b.setAttribute("aria-label", mostrar ? "Ocultar" : "Mostrar");
+    });
+});
 
+// revisr que el número sea válido (algoritmo de Luhn)
+function luhn(num) {
+    var suma = 0, doble = false;
+    for (var i = num.length - 1; i >= 0; i--) {
+        var n = parseInt(num.charAt(i), 10);
+        if (doble) { n *= 2; if (n > 9) n -= 9; }
+        suma += n;
+        doble = !doble;
+    }
+    return suma % 10 === 0;
+}
+function marcaTarjeta(num) {
+    if (/^4/.test(num)) return "Visa";
+    if (/^(5[1-5]|2[2-7])/.test(num)) return "Mastercard";
+    if (/^3[47]/.test(num)) return "American Express";
+    return "Tarjeta";
+}
+
+// ---- mensaje de WhatsApp ----
+function armarMensaje(p) {
+    var t = "Hola Galaxy Pizza  Quiero hacer un pedido (" + p.id + "):\n";
+    p.items.forEach(function (it) {
+        t += "• " + it.cantidad + " × " + it.nombre + (it.detalle ? " (" + it.detalle + ")" : "") +
+             " – " + dinero(it.precio * it.cantidad) + "\n";
+    });
+    t += "\nTotal: " + dinero(p.total);
+    t += "\nPago: " + p.pago;
+    if (p.pago === "Efectivo") t += " (en persona al llegar el repartidor)";
+    if (p.pago === "Transferencia" && p.tarjeta) t += " (" + p.tarjeta.marca + " terminada en " + p.tarjeta.ultimos4 + ")";
+    t += "\nNombre: " + p.nombre;
+    t += "\nDirección: " + p.direccion;
+    t += "\nTeléfono: " + p.telefono;
+    return t;
+}
+
+// ---- confirmar ----
+function marcar(msg, campo) {
+    $("error").textContent = msg;
+    document.querySelectorAll(".invalido").forEach(function (e) { e.classList.remove("invalido"); });
+    if (campo) {
+        campo.classList.add("invalido");
+        campo.scrollIntoView({ behavior: "smooth", block: "center" });
+        campo.focus({ preventScroll: true });
+    }
+}
+
+$("btn").addEventListener("click", function () {
+    marcar("");
+
+    var nombre = $("nombre").value.trim();
+    var apellido = $("apellido").value.trim();
+    var email = $("email").value.trim();
+    var tel = $("telefono").value.replace(/\D/g, "");
+    var calle = $("calle").value.trim();
+    var colonia = $("colonia").value.trim();
+    var ciudad = $("ciudad").value.trim();
+    var estado = $("estado").value.trim();
+    var cp = $("cp").value.trim();
+    var pago = pagoElegido();
+
+    if (nombre.length < 2) return marcar("Escribe tu nombre", $("nombre"));
+    if (email && !/^\S+@\S+\.\S+$/.test(email)) return marcar("Revisa tu correo, parece incompleto", $("email"));
+    if (tel.length < 10) return marcar("Teléfono a 10 dígitos", $("telefono"));
+    if (calle.length < 4) return marcar("Escribe tu dirección", $("calle"));
+    if (ciudad.length < 2) return marcar("Escribe tu ciudad", $("ciudad"));
+
+    // si paga con tarjeta, se revisan los datos (nunca se guarda el número completo ni el CVV)
+    var tarjeta = null;
+    if (pago === "Transferencia") {
+        var num = $("t-numero").value.replace(/\D/g, "");
+        if (num.length < 13 || !luhn(num)) return marcar("Revisa el número de tu tarjeta", $("t-numero"));
+        if ($("t-nombre").value.trim().length < 3) return marcar("Escribe el nombre que aparece en la tarjeta", $("t-nombre"));
+
+        var exp = $("t-exp").value.match(/^(\d{2})\/(\d{2})$/);
+        var mes = exp ? Number(exp[1]) : 0;
+        var anio = exp ? 2000 + Number(exp[2]) : 0;
+        var hoy = new Date();
+        var vencida = !exp || mes < 1 || mes > 12 || anio < hoy.getFullYear() ||
+                      (anio === hoy.getFullYear() && mes < hoy.getMonth() + 1);
+        if (vencida) return marcar("Revisa el vencimiento (MM/AA)", $("t-exp"));
+
+        var marca = marcaTarjeta(num);
+        var largoCvv = marca === "American Express" ? 4 : 3;
+        if ($("t-cvv").value.length !== largoCvv) return marcar("Revisa el CVV (" + largoCvv + " dígitos)", $("t-cvv"));
+
+        tarjeta = { marca: marca, ultimos4: num.slice(-4) };   // solo esto se conserva
+    }
+
+    var id = "GP-" + String(Date.now()).slice(-6);
+    var pedido = {
+        id: id,
+        nombre: (nombre + " " + apellido).trim(),
+        email: email,
+        telefono: tel,
+        direccion: [calle, colonia, ciudad, estado, cp].filter(Boolean).join(", "),
+        total: total,
+        pago: pago,
+        tarjeta: tarjeta,
+        items: carrito,
+        creado: Date.now()          // <- necesario para el seguimiento (tiempo y etapas)
+    };
+
+    localStorage.setItem("galaxy_pedido_activo", JSON.stringify(pedido));
+    localStorage.setItem("galaxy_ha_comprado", "1");
+    localStorage.setItem("galaxy_carrito", "[]");
+
+    // pantalla final
+    $("num").textContent = id;
+    $("msg").textContent = "Pago: " + pago +
+        (tarjeta ? " · " + tarjeta.marca + " terminada en " + tarjeta.ultimos4 : "") +
+        " · Total: " + dinero(total);
+
+    // se borran los datos de la tarjeta de la pantalla
+    ["t-numero", "t-nombre", "t-exp", "t-cvv"].forEach(function (id) { $(id).value = ""; });
+    ocultarCampos();
+    $("btn-wa").href = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(armarMensaje(pedido));
+    $("formulario").style.display = "none";
+    $("listo").style.display = "block";
+    window.scrollTo(0, 0);
+});
+</script>
 </body>
 </html>

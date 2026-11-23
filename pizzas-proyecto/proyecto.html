@@ -545,32 +545,27 @@
    </section>
 
     <!-- Entrega / seguimiento -->
- <section class="entrega" id="entrega">
-        <div class="titulo">
-            <h2>Tu pedido está en camino</h2>
-            <p id="estado-texto">Ver estado</p>
-        </div>
-        <div class="entrega-info">
-            <div>
-                <h3>Estado</h3>
-                <p id="estado-pedido">Sin pedido</p>
-            </div>
-            <div>
-                <h3>Repartidor</h3>
-                <p>Nombre: <strong id="estado-repartidor">Pendiente</strong></p>
-            </div>
-            <div>
-                <h3>📍 Ubicación</h3>
-                <p id="estado-direccion">Tu pedido llegará a la dirección indicada.</p>
-            </div>
-            <div>
-                <h3>Atención por WhatsApp</h3>
-                <a href="https://wa.me/524491234567?text=Hola%2C%20quiero%20saber%20el%20estado%20de%20mi%20pedido" class="whatsapp" target="_blank" rel="noopener">
+<section class="entrega" id="entrega" hidden>
+    <div class="titulo">
+        <h2 id="entrega-titulo">Tu pedido</h2>
+        <p id="estado-texto"></p>
+    </div>
+    <ol class="pasos" id="seguimiento-pasos"></ol>
+    <div class="ruta">
+        <span class="punto-ruta punto-inicio"></span>
+        <div class="ruta-linea"><span class="ruta-moto" id="ruta-moto"></span></div>
+        <span class="punto-ruta punto-fin"></span>
+    </div>
+    <div class="entrega-info">
+        <div><h3>Estado</h3><p id="estado-pedido">Sin pedido</p></div>
+        <div><h3>Repartidor</h3><p>Nombre: <strong id="estado-repartidor">Pendiente</strong></p></div>
+        <div><h3>📍 Ubicación</h3><p id="estado-direccion"></p><p id="estado-resumen"></p></div>
+        <div><h3>Atención por WhatsApp</h3><a href="https://wa.me/524491234567?text=Hola%2C%20quiero%20saber%20el%20estado%20de%20mi%20pedido" class="whatsapp" target="_blank" rel="noopener">
                     Contactar por WhatsApp
-                </a>
-            </div>
-        </div>
-    </section>
+                </a></div>
+    </div>
+    <button type="button" id="btn-cerrar-pedido" class="btn-cerrar-pedido" hidden>Listo, ya lo recibí</button>
+</section>
 
     <!-- Sucursales -->
     <section class="sucursales" id="sucursales">
