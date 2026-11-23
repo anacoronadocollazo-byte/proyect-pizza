@@ -374,6 +374,11 @@ var WHATSAPP = "449 538 2005";               // WhatsApp de la pizzería
 // =============================================
 
 function $(id) { return document.getElementById(id); }
+// wa.me necesita solo números y con lada de país: "449 538 2005" -> 524495382005
+function numeroWhatsApp() {
+    var n = WHATSAPP.replace(/\D/g, "");
+    return n.length === 10 ? "52" + n : n;
+}
 function dinero(n) { return "$" + Number(n).toFixed(0); }
 
 var carrito = [];
@@ -445,7 +450,7 @@ document.querySelectorAll("input, select").forEach(function (el) {
 
 // ---- tarjeta: formato  ----
 var MODO_DEMO = true;   // true = avisa que no se cobra de verdad. Ponlo en false SOLO cuando conectes un cobro real.
-if (!MODO_DEMO) $("demo-nota").hidden = true;
+if (!MODO_DEMO && $("demo-nota")) $("demo-nota").hidden = true;
 
 $("t-numero").addEventListener("input", function () {
     var d = this.value.replace(/\D/g, "").slice(0, 19);
@@ -547,22 +552,34 @@ $("btn").addEventListener("click", function () {
     var tarjeta = null;
     if (pago === "Transferencia") {
         var num = $("t-numero").value.replace(/\D/g, "");
-        if (num.length < 13 || !luhn(num)) return marcar("Revisa el número de tu tarjeta", $("t-numero"));
-        if ($("t-nombre").value.trim().length < 3) return marcar("Escribe el nombre que aparece en la tarjeta", $("t-nombre"));
+        var nombreTarjeta = $("t-nombre").value.trim();
+        var expTxt = $("t-exp").value.trim();
+        var cvv = $("t-cvv").value;
 
-        var exp = $("t-exp").value.match(/^(\d{2})\/(\d{2})$/);
-        var mes = exp ? Number(exp[1]) : 0;
-        var anio = exp ? 2000 + Number(exp[2]) : 0;
-        var hoy = new Date();
-        var vencida = !exp || mes < 1 || mes > 12 || anio < hoy.getFullYear() ||
-                      (anio === hoy.getFullYear() && mes < hoy.getMonth() + 1);
-        if (vencida) return marcar("Revisa el vencimiento (MM/AA)", $("t-exp"));
+        if (MODO_DEMO) {
+            // MODO DEMOSTRACIÓN: acepta cualquier dato, solo pide que no estén vacíos
+            if (num.length < 4) return marcar("Escribe el número de tu tarjeta", $("t-numero"));
+            if (!nombreTarjeta) return marcar("Escribe el nombre de la tarjeta", $("t-nombre"));
+            if (!expTxt) return marcar("Escribe el vencimiento", $("t-exp"));
+            if (!cvv) return marcar("Escribe el CVV", $("t-cvv"));
+        } else {
+            // COBRO REAL: revisión estricta
+            if (num.length < 13 || !luhn(num)) return marcar("Revisa el número de tu tarjeta", $("t-numero"));
+            if (nombreTarjeta.length < 3) return marcar("Escribe el nombre que aparece en la tarjeta", $("t-nombre"));
 
-        var marca = marcaTarjeta(num);
-        var largoCvv = marca === "American Express" ? 4 : 3;
-        if ($("t-cvv").value.length !== largoCvv) return marcar("Revisa el CVV (" + largoCvv + " dígitos)", $("t-cvv"));
+            var exp = expTxt.match(/^(\d{2})\/(\d{2})$/);
+            var mes = exp ? Number(exp[1]) : 0;
+            var anio = exp ? 2000 + Number(exp[2]) : 0;
+            var hoy = new Date();
+            var vencida = !exp || mes < 1 || mes > 12 || anio < hoy.getFullYear() ||
+                          (anio === hoy.getFullYear() && mes < hoy.getMonth() + 1);
+            if (vencida) return marcar("Revisa el vencimiento (MM/AA)", $("t-exp"));
 
-        tarjeta = { marca: marca, ultimos4: num.slice(-4) };   // solo esto se conserva
+            var largoCvv = marcaTarjeta(num) === "American Express" ? 4 : 3;
+            if (cvv.length !== largoCvv) return marcar("Revisa el CVV (" + largoCvv + " dígitos)", $("t-cvv"));
+        }
+
+        tarjeta = { marca: marcaTarjeta(num), ultimos4: num.slice(-4) };   // solo esto se conserva
     }
 
     var id = "GP-" + String(Date.now()).slice(-6);
@@ -592,7 +609,7 @@ $("btn").addEventListener("click", function () {
     // se borran los datos de la tarjeta de la pantalla
     ["t-numero", "t-nombre", "t-exp", "t-cvv"].forEach(function (id) { $(id).value = ""; });
     ocultarCampos();
-    $("btn-wa").href = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(armarMensaje(pedido));
+    $("btn-wa").href = "https://wa.me/" + numeroWhatsApp() + "?text=" + encodeURIComponent(armarMensaje(pedido));
     $("formulario").style.display = "none";
     $("listo").style.display = "block";
     window.scrollTo(0, 0);
