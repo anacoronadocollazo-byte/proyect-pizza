@@ -459,6 +459,7 @@ button { cursor: pointer; border: none; font-family: inherit; }
     color: #fbbf24;
 }
 .reseñas-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.reseñas-grid > * { min-width: 0; }
 .reseña {
     background: var(--card); border: 1.5px solid var(--line);
     border-radius: 14px; padding: 18px;
@@ -468,7 +469,7 @@ button { cursor: pointer; border: none; font-family: inherit; }
 }
 .reseña p {
     color: var(--muted); font-size: 13px; font-style: italic;
-    margin-bottom: 10px; line-height: 1.5;
+    margin-bottom: 10px; line-height: 1.5; overflow-wrap: anywhere;
 }
 .reseña cite {
     font-style: normal; font-size: 13px; font-weight: 800; color: var(--accent-deep);
@@ -796,14 +797,14 @@ footer {
     .tamaños-grid { grid-template-columns: repeat(2, 1fr); }
     .entrega-info { grid-template-columns: repeat(2, 1fr); }
     .sucursales-grid { grid-template-columns: repeat(2, 1fr); }
-    .resenas-grid { grid-template-columns: repeat(2, 1fr); }
+    .reseñas-grid { grid-template-columns: repeat(2, 1fr); }
     .encabezado { flex-wrap: wrap; }
     .buscador { order: 3; max-width: 100%; width: 100%; }
 }
 @media (max-width: 600px) {
     .categorias-grid, .productos-grid, .tamaños-grid, .ingredientes-grid,
     .tipo-grid, .extras-grid, .bebidas-grid, .promociones-grid,
-    .sucursales-grid, .entrega-info, .footer-contenido, .resenas-grid,
+    .sucursales-grid, .entrega-info, .footer-contenido, .reseñas-grid,
     .formulario-pedido { grid-template-columns: 1fr; }
     .menu { justify-content: flex-start; gap: 18px; }
     .acciones { gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
@@ -811,9 +812,6 @@ footer {
     .modal-opciones { grid-template-columns: 1fr; }
     .banner { width: 94%; border-radius: 18px; }
     .banner-texto { padding: 28px 20px; }
-}
-.modal ¨{
-    display: none;
 }
 
 /* incio diseño js */
@@ -1251,3 +1249,9 @@ footer {
     cursor: pointer;
 }
 .resena-quitar:hover { text-decoration: underline; }
+/* Mensajes de error en inicio de sesión / registro */
+.auth-error {
+    min-height: 16px; margin: 0; color: #dc2626;
+    font-size: 13px; font-weight: 700; text-align: center;
+}
+.auth-nota a { color: var(--accent-deep); font-weight: 700; text-decoration: underline; }

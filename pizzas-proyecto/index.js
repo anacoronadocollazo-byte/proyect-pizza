@@ -164,6 +164,12 @@ const INGREDIENTES = [
 ];
 let pizzaActual = null;
 
+// Tamaño elegido en la sección "Elige tu tamaño" (por defecto Mediana)
+let tamanoActual = { nombre: "Mediana", extra: 0 };
+
+function abrirModal(m) { if (m) { m.hidden = false; m.style.display = "flex"; } }
+function cerrarModal(m) { if (m) { m.hidden = true; m.style.display = "none"; } }
+
 function abrirPizza(art) {
   const modal = $("#modal-pizza");
   if (!modal) return agregar(datosDe(art));
@@ -194,7 +200,8 @@ function abrirPizza(art) {
       .join("");
   }
 
-  const t = $('input[name="modal-tamano"][data-nombre="Mediana"]');
+  const t = $(`input[name="modal-tamano"][data-nombre="${tamanoActual.nombre}"]`) ||
+            $('input[name="modal-tamano"][data-nombre="Mediana"]');
   if (t) t.checked = true;
 
   const m = $('input[name="modal-masa"][value="0"]');
@@ -261,17 +268,22 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Botón Agregar pizza (directo)
+  // Botón Agregar pizza (directo) usa el tamaño elegido arriba
   $$(".btn-agregar-pizza").forEach((b) => {
     b.addEventListener("click", () => {
       const art = b.closest(".producto");
       if (art) {
-        agregar({ ...datosDe(art), detalle: "Mediana · Masa Tradicional" });
+        const d = datosDe(art);
+        agregar({
+          ...d,
+          precio: d.precio + tamanoActual.extra,
+          detalle: tamanoActual.nombre + " · Masa Tradicional",
+        });
       }
     });
   });
 
-  // Clic en imagen o botón Personalizar → abre modal
+// Clic en imagen o botón Personalizar abre modal
   $$(".producto .producto-imagen, .btn-personalizar").forEach((el) => {
     el.addEventListener("click", () => {
       const art = el.closest(".producto");
@@ -311,112 +323,250 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Promociones
+  const PROMOS = {
+    "2x1": {
+      id: "promo-2x1", nombre: "Promo 2x1 Pepperoni", precio: 149,
+      img: "pizzapeperoni.png", detalle: "2 pizzas medianas",
+    },
+    combo: {
+      id: "promo-combo", nombre: "Promo combo de carne", precio: 160,
+      img: "combo.jpg", detalle: "1 pizza de carne mediana con un refresco de cocacola",
+    },
+    navidad: {
+      id: "promo-nav", nombre: "Promo de mini pizzas", precio: 145,
+      img: "promociontemp.jpg", detalle: "6 mini pizzas sabrosas tematicas de navidad para cada miembro de la familia",
+    },
+  };
+
   $$(".btn-promo").forEach((b) => {
     b.addEventListener("click", () => {
-      if (b.dataset.promo === "2x1") {
-        agregar({
-          id: "promo-2x1",
-          nombre: "Promo 2x1 Pepperoni",
-          precio: 149,
-          img: "pizzapeperoni.png",
-          detalle: "2 pizzas medianas",
-        });
-      }
-      if (b.dataset.promo === "combo") {
-        agregar({
-          id: "promo-combo",
-          nombre: "Promo combo de carne",
-          precio: 160,
-          img: "combo.jpg",
-          detalle: "1 pizza de carne mediana con un refresco de cocacola",
-        });
-      }
-      if (b.dataset.promo === "navidad") {
-        agregar({
-          id: "promo-nav",
-          nombre: "Promo de mini pizzas",
-          precio: 145,
-          img: "promociontemp.jpg",
-          detalle: "6 mini pizzas sabrosas tematicas de navidad para cada miembro de la familia",
-        });
-      }
-      else {
-        toast("Promoción de temporada próximamente ✨");
-      }
+      const promo = PROMOS[b.dataset.promo];
+      if (promo) agregar({ ...promo });
+      else toast("Promoción de temporada próximamente ✨");
     });
   });
 
   // Cerrar modales con tecla Escape
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
-      $$(".modal").forEach((m) => {
-        m.hidden = true;
-        m.style.display = "none";
-      });
+      $$(".modal").forEach(cerrarModal);
+      const mf = $("#mapa-frame");
+      if (mf) mf.src = "";
     }
   });
 
-// ===== INICIO DE SESIÓN =====
-  const btnLogin = document.getElementById("btn-login");
-  const modalLogin = document.getElementById("modal-login");
-  const btnCerrarLogin = document.getElementById("cerrar");
-
-  if (btnLogin && modalLogin) {
-    btnLogin.addEventListener("click", () => {
-      modalLogin.style.display = "flex";
+// ===== TAMAÑO (sección "Elige tu tamaño") =====
+  function leerTamano() {
+    const r = $('input[name="tamano"]:checked');
+    tamanoActual = r
+      ? { nombre: r.dataset.nombre, extra: Number(r.dataset.extra) }
+      : { nombre: "Mediana", extra: 0 };
+  }
+  function pintarPreciosPizzas() {
+    $$("#pizzas .producto:not(.producto-personalizada)").forEach((art) => {
+      const el = $(".precio", art);
+      if (el) el.textContent = dinero(Number(art.dataset.precio) + tamanoActual.extra);
     });
   }
+  $$('input[name="tamano"]').forEach((r) => {
+    r.addEventListener("change", () => {
+      leerTamano();
+      pintarPreciosPizzas();
+      toast("Tamaño " + tamanoActual.nombre + ": tus pizzas se agregan en este tamaño 🍕");
+    });
+  });
+  leerTamano();
+  pintarPreciosPizzas();
 
-  if (btnCerrarLogin && modalLogin) {
-    btnCerrarLogin.addEventListener("click", () => {
-      modalLogin.style.display = "none";
-    });
-  }
-  if (btnCerrarLogin && modalLogin) {
-    btnCerrarLogin.addEventListener("click", () => {
-      modalLogin.style.display = "none";
-    });
+  // ===== CUENTAS (todo se guarda en este navegador) =====
+  const CLAVE_USUARIOS = "galaxy_usuarios";
+  const CLAVE_SESION = "galaxy_sesion";
+  const leerLS = (k, d) => {
+    try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch (e) { return d; }
+  };
+
+  // La contraseña no se guarda tal cual, solo su "huella" (hash)
+  async function huella(correo, password) {
+    const txt = correo.toLowerCase() + "|" + password;
+    try {
+      const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(txt));
+      return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, "0")).join("");
+    } catch (e) {
+      return btoa(unescape(encodeURIComponent(txt)));
     }
-});
+  }
 
-// === REGISTRO ===
+  const modalLogin = $("#modal-login");
+  const modalRegistro = $("#modal-registro");
+  const btnLogin = $("#btn-login");
+  const btnRegistro = $("#abrir-registro");
+  const formLogin = $("#form-login");
+  const formRegistro = $("#form-registro");
+  const errLogin = $("#login-error");
+  const errRegistro = $("#registro-error");
 
-const btnRegistro = document.getElementById("abrir-registro");
-const modalRegistro = document.getElementById("modal-abrir-registro");
-const btnCerrarRegistro = document.getElementById("cerrar-registro");
+  function pintarSesion() {
+    const s = leerLS(CLAVE_SESION, null);
+    if (!btnLogin) return;
+    if (s) {
+      btnLogin.textContent = "Hola, " + s.nombre.split(" ")[0];
+      btnLogin.classList.add("logueado");
+      btnLogin.title = "Clic para cerrar sesión";
+      if (btnRegistro) btnRegistro.hidden = true;
+    } else {
+      btnLogin.textContent = "Iniciar sesión";
+      btnLogin.classList.remove("logueado");
+      btnLogin.title = "";
+      if (btnRegistro) btnRegistro.hidden = false;
+    }
+  }
 
-if (btnRegistro && modalRegistro) {
-    btnRegistro.addEventListener("click", () => {
-        modalRegistro.style.display = "flex";
+  function abrirLogin() {
+    if (errLogin) errLogin.textContent = "";
+    abrirModal(modalLogin);
+    const i = formLogin && formLogin.usuario;
+    if (i) i.focus();
+  }
+  function abrirRegistro() {
+    if (errRegistro) errRegistro.textContent = "";
+    abrirModal(modalRegistro);
+    const i = formRegistro && formRegistro.nombre;
+    if (i) i.focus();
+  }
+
+  if (btnLogin) {
+    btnLogin.addEventListener("click", () => {
+      if (leerLS(CLAVE_SESION, null)) {
+        if (confirm("¿Cerrar sesión?")) {
+          localStorage.removeItem(CLAVE_SESION);
+          pintarSesion();
+          toast("Sesión cerrada");
+        }
+      } else abrirLogin();
     });
-}
+  }
+  if (btnRegistro) btnRegistro.addEventListener("click", abrirRegistro);
 
-if (btnCerrarRegistro && modalRegistro) {
-    btnCerrarRegistro.addEventListener("click", () => {
-        modalRegistro.style.display = "none";
+  const irRegistro = $("#ir-registro");
+  if (irRegistro) {
+    irRegistro.addEventListener("click", (e) => {
+      e.preventDefault();
+      cerrarModal(modalLogin);
+      abrirRegistro();
     });
-}
-    
+  }
 
-////=== MAPA DE UBICACIONES =====
-const modalMapa = document.getElementById('modal-mapa');
-const mapaFrame = document.getElementById('mapa-frame');
-document.querySelectorAll('.btn-ubicacion').forEach(btn => {
-    btn.addEventListener('click', () => {
-        const q = encodeURIComponent(btn.dataset.direccion);
-        document.getElementById('mapa-titulo').textContent =
-            btn.closest('article').querySelector('h3').textContent;
+  $$("[data-cerrar-login]").forEach((b) => b.addEventListener("click", () => cerrarModal(modalLogin)));
+  $$("[data-cerrar-registro]").forEach((b) => b.addEventListener("click", () => cerrarModal(modalRegistro)));
+
+  if (formRegistro) {
+    formRegistro.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const nombre = formRegistro.nombre.value.trim();
+      const email = formRegistro.email.value.trim().toLowerCase();
+      const tel = formRegistro.telefono.value.replace(/\D/g, "");
+      const pass = formRegistro.password.value;
+
+      if (nombre.length < 2) return (errRegistro.textContent = "Escribe tu nombre");
+      if (!/^\S+@\S+\.\S+$/.test(email)) return (errRegistro.textContent = "Revisa tu correo");
+      if (tel && tel.length < 10) return (errRegistro.textContent = "El teléfono debe tener 10 dígitos");
+      if (pass.length < 4) return (errRegistro.textContent = "La contraseña debe tener mínimo 4 caracteres");
+
+      const usuarios = leerLS(CLAVE_USUARIOS, []);
+      if (usuarios.some((u) => u.email === email)) {
+        return (errRegistro.textContent = "Ese correo ya tiene cuenta. Inicia sesión");
+      }
+      if (tel && usuarios.some((u) => u.telefono === tel)) {
+        return (errRegistro.textContent = "Ese teléfono ya tiene cuenta. Inicia sesión");
+      }
+
+      usuarios.push({ nombre, email, telefono: tel, clave: await huella(email, pass) });
+      localStorage.setItem(CLAVE_USUARIOS, JSON.stringify(usuarios));
+      localStorage.setItem(CLAVE_SESION, JSON.stringify({ nombre, email, telefono: tel }));
+
+      formRegistro.reset();
+      cerrarModal(modalRegistro);
+      pintarSesion();
+      toast("¡Cuenta creada! Bienvenido, " + nombre.split(" ")[0] + " 🍕");
+    });
+  }
+
+  if (formLogin) {
+    formLogin.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const dato = formLogin.usuario.value.trim().toLowerCase();
+      const pass = formLogin.password.value;
+      const soloNum = dato.replace(/\D/g, "");
+
+      const u = leerLS(CLAVE_USUARIOS, []).find(
+        (x) => x.email === dato || (soloNum.length >= 10 && x.telefono === soloNum)
+      );
+      if (!u || u.clave !== (await huella(u.email, pass))) {
+        return (errLogin.textContent = "Correo/teléfono o contraseña incorrectos");
+      }
+
+      localStorage.setItem(CLAVE_SESION, JSON.stringify({ nombre: u.nombre, email: u.email, telefono: u.telefono }));
+      formLogin.reset();
+      cerrarModal(modalLogin);
+      pintarSesion();
+      toast("¡Hola de nuevo, " + u.nombre.split(" ")[0] + "! 🍕");
+    });
+  }
+  pintarSesion();
+
+  // ===== UBICACIONES =====
+  const modalMapa = $("#modal-mapa");
+  const mapaFrame = $("#mapa-frame");
+  if (modalMapa && mapaFrame) {
+    $$(".btn-ubicacion").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        const dir = btn.dataset.direccion;
+        if (!dir) return;
+        e.preventDefault();
+        const q = encodeURIComponent(dir);
+        const art = btn.closest("article");
+        $("#mapa-titulo").textContent = art ? $("h3", art).textContent : "Ubicación";
         mapaFrame.src = `https://www.google.com/maps?q=${q}&output=embed`;
-        document.getElementById('mapa-link').href =
-            `https://www.google.com/maps/search/?api=1&query=${q}`;
-        modalMapa.hidden = false;
+        $("#mapa-link").href = `https://www.google.com/maps/search/?api=1&query=${q}`;
+        abrirModal(modalMapa);
+      });
     });
-});
-modalMapa.querySelectorAll('[data-cerrar-mapa]').forEach(el => {
-    el.addEventListener('click', () => {
-        modalMapa.hidden = true;
-        mapaFrame.src = '';
+    $$("[data-cerrar-mapa]", modalMapa).forEach((el) => {
+      el.addEventListener("click", () => {
+        cerrarModal(modalMapa);
+        mapaFrame.src = "";
+      });
     });
+  }
+
+  // =====bolsa de chamba =====
+  const formTrabajo = $("#form-trabajo");
+  if (formTrabajo) {
+    formTrabajo.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const f = formTrabajo.elements;
+      const sol = {
+        nombre: f.nombre.value.trim(),
+        correo: f.correo.value.trim(),
+        telefono: f.telefono.value.replace(/\D/g, ""),
+        vacante: f.vacante.value,
+        fecha: Date.now(),
+      };
+      if (sol.nombre.length < 2) return toast("Escribe tu nombre completo");
+      if (sol.telefono.length < 10) return toast("El teléfono debe tener 10 dígitos");
+      if (!sol.vacante) return toast("Elige una vacante");
+
+      const guardadas = leerLS("galaxy_solicitudes", []);
+      guardadas.unshift(sol);
+      try {
+        localStorage.setItem("galaxy_solicitudes", JSON.stringify(guardadas.slice(0, 100)));
+      } catch (err) {
+        return toast("No se pudo guardar tu solicitud");
+      }
+      formTrabajo.reset();
+      toast("¡Solicitud enviada! Te contactaremos pronto 🍕");
+    });
+  }
 });
 
 //=== Reswñas ===
