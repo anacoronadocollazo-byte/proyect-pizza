@@ -139,13 +139,21 @@ function pintarCarrito() {
 }
 
 function hacerPedido(e) {
-  // "Hacer pedido" ahora es un enlace a pedido.html: si el carrito está vacío, no lo dejamos pasar
   if (!carrito.length) {
     if (e) e.preventDefault();
     return toast("Agrega algo primero");
   }
+  // Si no ha iniciado sesión, abrimos la ventana de inicio de sesión
+  if (!localStorage.getItem("galaxy_sesion")) {
+    if (e) e.preventDefault();
+    localStorage.setItem("galaxy_ir_a_pedido", "1"); // para continuar después
+    toast("Inicia sesión o crea una cuenta para hacer tu pedido");
+    document.getElementById("btn-login").click(); // abre la ventana de inicio de sesión
+    return;
+  }
   location.href = "pedido.html";
 }
+
 
 function datosDe(el) {
   return {
@@ -479,15 +487,12 @@ document.addEventListener("DOMContentLoaded", () => {
       if (tel && usuarios.some((u) => u.telefono === tel)) {
         return (errRegistro.textContent = "Ese teléfono ya tiene cuenta. Inicia sesión");
       }
-
-      usuarios.push({ nombre, email, telefono: tel, clave: await huella(email, pass) });
-      localStorage.setItem(CLAVE_USUARIOS, JSON.stringify(usuarios));
-      localStorage.setItem(CLAVE_SESION, JSON.stringify({ nombre, email, telefono: tel }));
-
-      formRegistro.reset();
-      cerrarModal(modalRegistro);
       pintarSesion();
-      toast("¡Cuenta creada! Bienvenido, " + nombre.split(" ")[0] + " 🍕");
+      toast("¡Cuenta creada! Bienvenido, " + nombre.split(" ")[0] + " 🍕");   
+      if (localStorage.getItem("galaxy_ir_a_pedido")) {                       
+        localStorage.removeItem("galaxy_ir_a_pedido");
+        location.href = "pedido.html";
+      }
     });
   }
 
@@ -504,13 +509,14 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!u || u.clave !== (await huella(u.email, pass))) {
         return (errLogin.textContent = "Correo/teléfono o contraseña incorrectos");
       }
-
-      localStorage.setItem(CLAVE_SESION, JSON.stringify({ nombre: u.nombre, email: u.email, telefono: u.telefono }));
-      formLogin.reset();
-      cerrarModal(modalLogin);
       pintarSesion();
-      toast("¡Hola de nuevo, " + u.nombre.split(" ")[0] + "! 🍕");
-    });
+      toast("¡Hola de nuevo, " + u.nombre.split(" ")[0] + "! 🍕");            // línea 512
+      if (localStorage.getItem("galaxy_ir_a_pedido")) {                       // ← nuevo
+        localStorage.removeItem("galaxy_ir_a_pedido");
+        location.href = "pedido.html";
+      }
+    });                                                                       // línea 513
+
   }
   pintarSesion();
 
